@@ -111,6 +111,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   
   func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
     configureCell(cell: cell, cellState: cellState)
+    cell?.bounce()
   }
   
   func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
@@ -142,6 +143,20 @@ extension CalendarView {
       formatter.date(from: "2017 10 15")!: "B!",
       formatter.date(from: "2017 10 27")!: "C!",
     ]
+  }
+}
+
+extension UIView {
+  func bounce() {
+    self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+    UIView.animate(
+      withDuration: 0.5,
+      delay: 0, usingSpringWithDamping: 0.3,
+      initialSpringVelocity: 0.1,
+      options: UIViewAnimationOptions.beginFromCurrentState,
+      animations: {
+        self.transform = CGAffineTransform(scaleX: 1, y: 1)
+    })
   }
 }
 
