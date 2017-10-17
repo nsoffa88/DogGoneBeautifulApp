@@ -13,6 +13,7 @@ class CalendarView: UIViewController {
   @IBOutlet weak var calendarView: JTAppleCalendarView!
   @IBOutlet weak var year: UILabel!
   @IBOutlet weak var month: UILabel!
+  @IBOutlet weak var todayButton: UIButton!
   
   let formatter: DateFormatter = {
     let dateFormatter = DateFormatter()
@@ -24,7 +25,7 @@ class CalendarView: UIViewController {
   
   let todaysDate = Date()
   
-    var eventsFromTheServer: [String: String] = [:]
+  var eventsFromTheServer: [String: String] = [:]
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,6 +49,11 @@ class CalendarView: UIViewController {
     calendarView.visibleDates { dateSegment in
       self.setupCalendarView(dateSegment: dateSegment)
     }
+  }
+  
+  @IBAction func todayButton(_ sender: Any) {
+    calendarView.scrollToDate(Date())
+    calendarView.selectDates([Date()])
   }
   
   func setupCalendarView(dateSegment: DateSegmentInfo) {
