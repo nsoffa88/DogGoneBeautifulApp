@@ -24,9 +24,22 @@ class CalendarView: UIViewController {
   
   let todaysDate = Date()
   
+    var eventsFromTheServer: [String: String] = [:]
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+        let serverObjects = self.getServerEvents()
+        for (date, event) in serverObjects {
+            let stringDate = self.formatter.string(from: date)
+            self.eventsFromTheServer[stringDate] = event
+        }
+        
+        DispatchQueue.main.async {
+            self.calendarView.reloadData()
+        }
+    }
     calendarView.scrollToDate( Date(), animateScroll: false )
     calendarView.selectDates([ Date() ])
     calendarView.minimumLineSpacing = 0
@@ -52,6 +65,7 @@ class CalendarView: UIViewController {
     cellTextColor(cell: myCustomCell, cellState: cellState)
     cellVisibility(cell: myCustomCell, cellState: cellState)
     cellSelection(cell: myCustomCell, cellState: cellState)
+    cellEvents(cell: myCustomCell, cellState: cellState)
   }
   
   func cellTextColor(cell: CustomCell, cellState: CellState) {
@@ -60,9 +74,9 @@ class CalendarView: UIViewController {
     let monthDateString = formatter.string(from: cellState.date)
     
     if todaysDateString == monthDateString {
-      cell.dateLabel.textColor = UIColor.cyan
+      cell.dateLabel.textColor = UIColor.blue
     } else {
-      cell.dateLabel.textColor = cellState.isSelected ? UIColor.black : UIColor.white
+      cell.dateLabel.textColor = UIColor.black
     }
   }
   
@@ -72,6 +86,10 @@ class CalendarView: UIViewController {
   
   func cellSelection(cell: CustomCell, cellState: CellState) {
     cell.selectedView.isHidden = cellState.isSelected ? false : true
+  }
+  
+  func cellEvents(cell: CustomCell, cellState: CellState) {
+    cell.eventDotView.isHidden = !eventsFromTheServer.contains { $0.key == formatter.string(from: cellState.date)}
   }
 }
 
@@ -101,6 +119,20 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   
   func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
     setupCalendarView(dateSegment: visibleDates)
+  }
+}
+
+extension CalendarView {
+  func getServerEvents() -> [Date:String] {
+    formatter.dateFormat = "yyyy MM dd"
+    
+    return[
+      formatter.date(from: "2017 10 12")!: "Happy Birthday!",
+      formatter.date(from: "2017 10 10")!: "Whaaaaat!",
+      formatter.date(from: "2017 10 01")!: "A!",
+      formatter.date(from: "2017 10 15")!: "B!",
+      formatter.date(from: "2017 10 27")!: "C!",
+    ]
   }
 }
 
