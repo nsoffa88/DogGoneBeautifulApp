@@ -120,6 +120,15 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
     setupCalendarView(dateSegment: visibleDates)
   }
+  
+  func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
+    let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "header", for: indexPath) as! CalendarHeader
+    return header
+  }
+  
+  func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
+    return MonthSize(defaultSize: 50)
+  }
 }
 
 extension CalendarView {

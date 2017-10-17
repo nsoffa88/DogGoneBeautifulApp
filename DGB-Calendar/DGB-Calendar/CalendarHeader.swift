@@ -6,7 +6,6 @@
 //  Copyright © 2017 Nicholas Soffa. All rights reserved.
 //
 
-import UIKit
 import JTAppleCalendar
 
 class CalendarHeader: JTAppleCollectionReusableView {
