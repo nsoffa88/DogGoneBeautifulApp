@@ -14,7 +14,6 @@
 		45DDD50E1F95502000EC942C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD50C1F95502000EC942C /* Main.storyboard */; };
 		45DDD5101F95502000EC942C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD50F1F95502000EC942C /* Assets.xcassets */; };
 		45DDD51B1F9559CE00EC942C /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDD51A1F9559CE00EC942C /* CustomCell.swift */; };
-		45DDD51D1F955A2300EC942C /* CalendarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDD51C1F955A2300EC942C /* CalendarHeader.swift */; };
 		739655689AFEE633E08CF30D /* Pods_DGB_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D046B5C12F1A405B955315 /* Pods_DGB_Calendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		45DDD50F1F95502000EC942C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45DDD5141F95502000EC942C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45DDD51A1F9559CE00EC942C /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		45DDD51C1F955A2300EC942C /* CalendarHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeader.swift; sourceTree = "<group>"; };
 		514B12BA8329695ED6115D47 /* Pods-DGB-Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DGB-Calendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-DGB-Calendar/Pods-DGB-Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		649BF99706345593608970D8 /* Pods-DGB-Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DGB-Calendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DGB-Calendar/Pods-DGB-Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		B6D046B5C12F1A405B955315 /* Pods_DGB_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DGB_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,7 +86,6 @@
 				45822C111F957BB000F462F9 /* CalendarView.swift */,
 				4546B9881F96C34A006663EA /* AddEventViewController.swift */,
 				45DDD51A1F9559CE00EC942C /* CustomCell.swift */,
-				45DDD51C1F955A2300EC942C /* CalendarHeader.swift */,
 				45DDD50C1F95502000EC942C /* Main.storyboard */,
 				45DDD50F1F95502000EC942C /* Assets.xcassets */,
 				45DDD5141F95502000EC942C /* Info.plist */,
@@ -228,7 +225,6 @@
 				4546B9841F96BC23006663EA /* DGB-Calendar.xcdatamodeld in Sources */,
 				4546B9891F96C34A006663EA /* AddEventViewController.swift in Sources */,
 				45DDD51B1F9559CE00EC942C /* CustomCell.swift in Sources */,
-				45DDD51D1F955A2300EC942C /* CalendarHeader.swift in Sources */,
 				45822C121F957BB000F462F9 /* CalendarView.swift in Sources */,
 				45DDD5091F95502000EC942C /* AppDelegate.swift in Sources */,
 			);
