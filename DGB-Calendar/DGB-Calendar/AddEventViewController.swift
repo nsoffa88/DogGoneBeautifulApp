@@ -11,8 +11,13 @@ import CoreData
 
 class AddEventViewController: UIViewController {
   @IBOutlet weak var dateSelection: UITextField!
+  @IBOutlet weak var clientTextField: UITextField!
+  @IBOutlet weak var LocationTextField: UITextField!
+  @IBOutlet weak var addEventButton: UIButton!
+  @IBOutlet weak var cancelEventSave: UIButton!
   
   let picker = UIDatePicker()
+  var events: [NSManagedObject] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,5 +47,54 @@ class AddEventViewController: UIViewController {
     dateSelection.text = "\(timeString)"
     self.view.endEditing(true)
   }
-
+  @IBAction func cancelEvent(_ sender: Any) {
+    self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
+  }
+  
+  @IBAction func addEventToCalendar(_ sender: Any) {
+    let nameToSave =  clientTextField.text
+    let locationToSave = LocationTextField.text
+    let timeToSave = dateSelection.text
+    
+    self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!)
+    self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
+  }
+  
+  func save(name: String, location: String, time: String) {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return
+    }
+    
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    let entity = NSEntityDescription.entity(forEntityName: "Event", in: managedContext)
+    
+    let event = NSManagedObject(entity: entity!, insertInto: managedContext)
+    
+    event.setValue(name, forKeyPath: "name")
+    event.setValue(location, forKeyPath: "location")
+    event.setValue(time, forKeyPath: "time")
+    
+    do {
+      try managedContext.save()
+      events.append(event)
+    } catch let error as NSError {
+      print("Could not save. \(error), \(error.userInfo)")
+    }
+    print("Testing Save?")
+    print(event.value(forKey: "name"))
+    print(event.value(forKey: "location"))
+    print(event.value(forKey: "time"))
+    print(events)
+  }
 }
+
+
+
+
+
+
+
+
+
+

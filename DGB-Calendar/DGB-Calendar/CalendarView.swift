@@ -8,12 +8,15 @@
 
 import UIKit
 import JTAppleCalendar
+import CoreData
 
 class CalendarView: UIViewController {
   @IBOutlet weak var calendarView: JTAppleCalendarView!
   @IBOutlet weak var year: UILabel!
   @IBOutlet weak var month: UILabel!
   @IBOutlet weak var todayButton: UIButton!
+  @IBOutlet weak var EventsTableView: UITableView!
+  @IBOutlet weak var addEventButton: UIButton!
   
   let formatter: DateFormatter = {
     let dateFormatter = DateFormatter()
@@ -24,6 +27,7 @@ class CalendarView: UIViewController {
   }()
   
   let todaysDate = Date()
+  var events: [NSManagedObject] = []
   
   var eventsFromTheServer: [String: String] = [:]
   
@@ -50,6 +54,10 @@ class CalendarView: UIViewController {
     calendarView.visibleDates { dateSegment in
       self.setupCalendarView(dateSegment: dateSegment)
     }
+    
+    EventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    print(events)
+    self.EventsTableView.reloadData()
   }
   
   @IBAction func todayButton(_ sender: Any) {
@@ -98,6 +106,31 @@ class CalendarView: UIViewController {
   func cellEvents(cell: CustomCell, cellState: CellState) {
     cell.eventDotView.isHidden = !eventsFromTheServer.contains { $0.key == formatter.string(from: cellState.date)}
   }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return
+    }
+    
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Event")
+    
+    do {
+      events = try managedContext.fetch(fetchRequest)
+      print("Fetch request working")
+      print(events)
+    } catch let error as NSError {
+      print("Could not fetch. \(error), \(error.userInfo)")
+    }
+  }
+  
+  @IBAction func addEventSegue(_ sender: Any) {
+    self.performSegue(withIdentifier: "addEventSegue", sender: self)
+  }
+  
 }
 
 extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
@@ -127,6 +160,19 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   
   func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
     setupCalendarView(dateSegment: visibleDates)
+  }
+}
+
+extension CalendarView: UITableViewDataSource {
+  func  tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return events.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let event = events[indexPath.row]
+    let cell = EventsTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    cell.textLabel?.text = event.value(forKeyPath: "name") as? String
+    return cell
   }
 }
 
