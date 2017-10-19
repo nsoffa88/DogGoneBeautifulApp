@@ -166,15 +166,6 @@
                                     <action selector="todayButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QaW-Ka-N9b"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gOz-wq-Z8c" userLabel="Add Event Button">
-                                <rect key="frame" x="360" y="706" width="22" height="22"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="addEventSegue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kfb-K8-LqH"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RMI-hq-7jU">
                                 <rect key="frame" x="0.0" y="425" width="414" height="265"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -182,21 +173,31 @@
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="whH-PN-eid"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gOz-wq-Z8c" userLabel="Add Event Button">
+                                <rect key="frame" x="365" y="702" width="22" height="22"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addEventSegue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kfb-K8-LqH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.76593243460450211" blue="0.80496847029371732" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gOz-wq-Z8c" secondAttribute="bottom" constant="8" id="1Dw-P2-tvo"/>
                             <constraint firstItem="RMI-hq-7jU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5vf-VS-K2w"/>
                             <constraint firstItem="RMI-hq-7jU" firstAttribute="top" secondItem="sVq-E8-0GF" secondAttribute="bottom" id="Fyw-Zo-hTi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RMI-hq-7jU" secondAttribute="trailing" id="GDh-qm-ERR"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Eyx-yL-wX7" secondAttribute="bottom" constant="8" id="Iki-F1-3Ft"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Eyx-yL-wX7" secondAttribute="trailing" constant="20" symbolic="YES" id="R62-xS-uN1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gOz-wq-Z8c" secondAttribute="bottom" constant="12" id="O3e-dI-BVf"/>
                             <constraint firstItem="sVq-E8-0GF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Rej-0D-EHq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Eyx-yL-wX7" secondAttribute="bottom" constant="8" id="SNQ-1r-cSQ"/>
                             <constraint firstItem="sVq-E8-0GF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="VE0-RE-tvU"/>
+                            <constraint firstItem="gOz-wq-Z8c" firstAttribute="top" secondItem="RMI-hq-7jU" secondAttribute="bottom" constant="12" id="cG2-52-hw3"/>
                             <constraint firstItem="Eyx-yL-wX7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="d1G-yH-cui"/>
+                            <constraint firstItem="gOz-wq-Z8c" firstAttribute="leading" secondItem="Eyx-yL-wX7" secondAttribute="trailing" constant="303" id="kg0-aM-X63"/>
                             <constraint firstItem="Eyx-yL-wX7" firstAttribute="top" secondItem="RMI-hq-7jU" secondAttribute="bottom" constant="8" id="sOx-FE-jLz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gOz-wq-Z8c" secondAttribute="trailing" constant="27" id="u6h-sE-y8q"/>
                             <constraint firstItem="sVq-E8-0GF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uwZ-jo-VEN"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gOz-wq-Z8c" secondAttribute="trailing" constant="32" id="ylU-Kj-dfI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
