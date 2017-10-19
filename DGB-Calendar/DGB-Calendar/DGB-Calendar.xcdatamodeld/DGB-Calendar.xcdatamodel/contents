@@ -3,9 +3,10 @@
     <entity name="Event" representedClassName="Event" syncable="YES" codeGenerationType="class">
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-36" positionY="9" width="128" height="90"/>
+        <element name="Event" positionX="-36" positionY="9" width="128" height="105"/>
     </elements>
 </model>

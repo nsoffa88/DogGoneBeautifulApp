@@ -13,9 +13,10 @@ class AddEventViewController: UIViewController {
   @IBOutlet weak var dateSelection: UITextField!
   @IBOutlet weak var clientTextField: UITextField!
   @IBOutlet weak var LocationTextField: UITextField!
+  @IBOutlet weak var notesTextField: UITextField!
   @IBOutlet weak var addEventButton: UIButton!
   @IBOutlet weak var cancelEventSave: UIButton!
-  
+
   let picker = UIDatePicker()
   var events: [NSManagedObject] = []
   
@@ -47,6 +48,7 @@ class AddEventViewController: UIViewController {
     dateSelection.text = "\(timeString)"
     self.view.endEditing(true)
   }
+    
   @IBAction func cancelEvent(_ sender: Any) {
     self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
   }
@@ -55,12 +57,13 @@ class AddEventViewController: UIViewController {
     let nameToSave =  clientTextField.text
     let locationToSave = LocationTextField.text
     let timeToSave = dateSelection.text
+    let notesToSave = notesTextField.text
     
-    self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!)
+    self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!)
     self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
   }
   
-  func save(name: String, location: String, time: String) {
+  func save(name: String, location: String, time: String, notes: String) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
       return
     }
@@ -74,6 +77,7 @@ class AddEventViewController: UIViewController {
     event.setValue(name, forKeyPath: "name")
     event.setValue(location, forKeyPath: "location")
     event.setValue(time, forKeyPath: "time")
+    event.setValue(notes, forKeyPath: "notes")
     
     do {
       try managedContext.save()
@@ -81,11 +85,12 @@ class AddEventViewController: UIViewController {
     } catch let error as NSError {
       print("Could not save. \(error), \(error.userInfo)")
     }
-    print("Testing Save?")
-    print(event.value(forKey: "name"))
-    print(event.value(forKey: "location"))
-    print(event.value(forKey: "time"))
-    print(events)
+//    print("Testing Save?")
+//    print(event.value(forKey: "name"))
+//    print(event.value(forKey: "location"))
+//    print(event.value(forKey: "time"))
+//    print(event.value(forKey: "notes"))
+//    print(events)
   }
 }
 
