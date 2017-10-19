@@ -115,13 +115,13 @@ class CalendarView: UIViewController {
     }
     
     let managedContext = appDelegate.persistentContainer.viewContext
-    
     let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Event")
+    
+    let sortDescriptor = NSSortDescriptor(key: "time", ascending: true)
+    fetchRequest.sortDescriptors = [sortDescriptor]
     
     do {
       events = try managedContext.fetch(fetchRequest)
-      print("Fetch request working")
-//      print(events)
     } catch let error as NSError {
       print("Could not fetch. \(error), \(error.userInfo)")
     }
@@ -170,8 +170,9 @@ extension CalendarView: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let event = events[indexPath.row]
-    let cell = EventsTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    let cell = EventsTableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
     cell.textLabel?.text = event.value(forKeyPath: "name") as? String
+    cell.detailTextLabel?.text = event.value(forKeyPath: "time") as? String
     print("Trying to print to tableView")
     return cell
   }
