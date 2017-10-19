@@ -121,7 +121,7 @@ class CalendarView: UIViewController {
     do {
       events = try managedContext.fetch(fetchRequest)
       print("Fetch request working")
-      print(events)
+//      print(events)
     } catch let error as NSError {
       print("Could not fetch. \(error), \(error.userInfo)")
     }
@@ -172,6 +172,7 @@ extension CalendarView: UITableViewDataSource {
     let event = events[indexPath.row]
     let cell = EventsTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
     cell.textLabel?.text = event.value(forKeyPath: "name") as? String
+    print("Trying to print to tableView")
     return cell
   }
 }
