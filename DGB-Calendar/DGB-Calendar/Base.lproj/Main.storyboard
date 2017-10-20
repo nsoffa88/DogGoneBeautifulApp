@@ -166,7 +166,7 @@
                                     <action selector="todayButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QaW-Ka-N9b"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RMI-hq-7jU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RMI-hq-7jU">
                                 <rect key="frame" x="0.0" y="440" width="414" height="250"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -193,10 +193,14 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="R9N-RQ-iM7" kind="show" identifier="editEventSegue" id="37s-MJ-KMH"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="whH-PN-eid"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="iqX-8Z-5BM"/>
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gOz-wq-Z8c" userLabel="Add Event Button">
@@ -234,9 +238,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Appointments" id="H2K-7R-FfU">
-                        <barButtonItem key="backBarButtonItem" title="Cancel" id="0wV-3v-3po"/>
-                    </navigationItem>
                     <connections>
                         <outlet property="EventsTableView" destination="RMI-hq-7jU" id="4sa-eS-4wO"/>
                         <outlet property="addEventButton" destination="gOz-wq-Z8c" id="IOc-SX-ye3"/>
@@ -297,7 +298,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zp-WJ-2j1">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zp-WJ-2j1">
                                 <rect key="frame" x="111" y="125" width="283" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="XD1-Kc-09C"/>
@@ -313,7 +314,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgo-w8-pUV">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgo-w8-pUV">
                                 <rect key="frame" x="111" y="170" width="283" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="283" id="1n5-Im-H6Y"/>
@@ -324,8 +325,8 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8r2-Mb-Siv">
-                                <rect key="frame" x="172" y="215" width="70" height="30"/>
-                                <state key="normal" title="Add Event"/>
+                                <rect key="frame" x="163" y="215" width="88" height="30"/>
+                                <state key="normal" title="Event Button"/>
                                 <connections>
                                     <action selector="addEventToCalendar:" destination="R9N-RQ-iM7" eventType="touchUpInside" id="JND-20-kaM"/>
                                 </connections>
@@ -377,10 +378,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="27S-4z-0Z5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1271" y="32"/>
+            <point key="canvasLocation" x="1269.5652173913045" y="31.793478260869566"/>
         </scene>
     </scenes>
     <resources>
         <image name="reddot" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="37s-MJ-KMH"/>
+    </inferredMetricsTieBreakers>
 </document>

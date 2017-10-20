@@ -127,6 +127,19 @@ class CalendarView: UIViewController {
     }
   }
   
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "addEventSegue" {
+      if let eventVC = segue.destination as? AddEventViewController {
+        eventVC.buttonInfoObject = "Add Event"
+      }
+    }
+    if segue.identifier == "editEventSegue" {
+      if let eventVC = segue.destination as? AddEventViewController {
+        eventVC.buttonInfoObject = "Edit Event"
+      }
+    }
+  }
+  
   @IBAction func addEventSegue(_ sender: Any) {
     self.performSegue(withIdentifier: "addEventSegue", sender: self)
   }

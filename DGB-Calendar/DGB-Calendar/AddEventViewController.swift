@@ -19,10 +19,15 @@ class AddEventViewController: UIViewController {
 
   let picker = UIDatePicker()
   var events: [NSManagedObject] = []
+  var buttonInfoObject: String?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     createDatePicker()
+    
+    if buttonInfoObject != nil {
+      addEventButton.setTitle(buttonInfoObject, for: .normal)
+    }
   }
 
   func createDatePicker() {
