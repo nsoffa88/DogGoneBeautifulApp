@@ -4,7 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -45,31 +45,31 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8H-f4-BxC">
-                                                        <rect key="frame" x="58.999999999999993" y="0.0" width="59.333333333333321" height="20"/>
+                                                        <rect key="frame" x="59" y="0.0" width="59.333333333333343" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="478-XM-WIP">
-                                                        <rect key="frame" x="118.33333333333334" y="0.0" width="59.000000000000028" height="20"/>
+                                                        <rect key="frame" x="118.33333333333331" y="0.0" width="59" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjO-Vq-66O">
-                                                        <rect key="frame" x="177.33333333333334" y="0.0" width="59.333333333333314" height="20"/>
+                                                        <rect key="frame" x="177.33333333333334" y="0.0" width="59.333333333333343" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddH-To-fK3">
-                                                        <rect key="frame" x="236.66666666666669" y="0.0" width="59.000000000000057" height="20"/>
+                                                        <rect key="frame" x="236.66666666666663" y="0.0" width="59" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ErX-02-sbu">
-                                                        <rect key="frame" x="295.66666666666674" y="0.0" width="59.333333333333314" height="20"/>
+                                                        <rect key="frame" x="295.66666666666669" y="0.0" width="59.333333333333314" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -105,7 +105,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qHx-Yd-8oG">
-                                                            <rect key="frame" x="32" y="33.666666666666671" width="40" height="40.000000000000014"/>
+                                                            <rect key="frame" x="32" y="33.666666666666664" width="40" height="39.999999999999993"/>
                                                             <color key="backgroundColor" red="1" green="0.2992270182969472" blue="0.33530303213912338" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="as8-si-YYB"/>
@@ -124,7 +124,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reddot" translatesAutoresizingMaskIntoConstraints="NO" id="pQD-Pn-dVx">
-                                                            <rect key="frame" x="47" y="63.666666666666671" width="10" height="10.000000000000014"/>
+                                                            <rect key="frame" x="47" y="63.666666666666657" width="10" height="10"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="10" id="m84-iU-fhf"/>
                                                                 <constraint firstAttribute="height" constant="10" id="wH7-22-BmU"/>
@@ -239,9 +239,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="EventsTableView" destination="RMI-hq-7jU" id="4sa-eS-4wO"/>
                         <outlet property="addEventButton" destination="gOz-wq-Z8c" id="IOc-SX-ye3"/>
                         <outlet property="calendarView" destination="yGO-ld-RzR" id="sXd-vY-ifR"/>
+                        <outlet property="eventsTableView" destination="RMI-hq-7jU" id="NpC-ly-Tej"/>
                         <outlet property="month" destination="bC3-rb-2oo" id="EaL-j3-uc2"/>
                         <outlet property="todayButton" destination="Eyx-yL-wX7" id="2Nj-Vn-K71"/>
                         <outlet property="year" destination="Gxc-PU-FyG" id="dKA-2W-ixY"/>
@@ -367,12 +367,12 @@
                         <viewLayoutGuide key="safeArea" id="1Jq-hI-veh"/>
                     </view>
                     <connections>
-                        <outlet property="LocationTextField" destination="Wkb-wa-IC8" id="tVg-s3-9jV"/>
                         <outlet property="addEventButton" destination="8r2-Mb-Siv" id="wn1-4Y-p8g"/>
                         <outlet property="cancelEventSave" destination="S3u-wz-Hp4" id="new-6A-wcr"/>
                         <outlet property="clientTextField" destination="DMV-4M-5UC" id="Hs7-K1-LIK"/>
-                        <outlet property="dateSelection" destination="1Zp-WJ-2j1" id="hjZ-fS-rpH"/>
+                        <outlet property="locationTextField" destination="Wkb-wa-IC8" id="6rf-VD-a3O"/>
                         <outlet property="notesTextField" destination="wgo-w8-pUV" id="haY-fW-vcf"/>
+                        <outlet property="timeSelection" destination="1Zp-WJ-2j1" id="EDy-Yo-HeF"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="backToCalendarSegue" id="CXj-V3-SWb"/>
                     </connections>
                 </viewController>

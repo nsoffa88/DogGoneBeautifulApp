@@ -15,7 +15,7 @@ class CalendarView: UIViewController {
   @IBOutlet weak var year: UILabel!
   @IBOutlet weak var month: UILabel!
   @IBOutlet weak var todayButton: UIButton!
-  @IBOutlet weak var EventsTableView: UITableView!
+  @IBOutlet weak var eventsTableView: UITableView!
   @IBOutlet weak var addEventButton: UIButton!
   
   let formatter: DateFormatter = {
@@ -34,6 +34,7 @@ class CalendarView: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    //Event Designation from fake Server, purely for Event Dot pop up, will replace with CoreData
     DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
         let serverObjects = self.getServerEvents()
         for (date, event) in serverObjects {
@@ -45,6 +46,8 @@ class CalendarView: UIViewController {
             self.calendarView.reloadData()
         }
     }
+    
+    //Setting up Calendar
     calendarView.scrollToDate( Date(), animateScroll: false )
     calendarView.selectDates([ Date() ])
     calendarView.minimumLineSpacing = 0
@@ -55,9 +58,10 @@ class CalendarView: UIViewController {
       self.setupCalendarView(dateSegment: dateSegment)
     }
     
-    EventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    //Setting up Events Table
+    eventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     print(events)
-    self.EventsTableView.reloadData()
+    self.eventsTableView.reloadData()
   }
   
   @IBAction func todayButton(_ sender: Any) {
@@ -104,9 +108,11 @@ class CalendarView: UIViewController {
   }
   
   func cellEvents(cell: CustomCell, cellState: CellState) {
+    //Will replace with CoreData
     cell.eventDotView.isHidden = !eventsFromTheServer.contains { $0.key == formatter.string(from: cellState.date)}
   }
   
+  //Fetching Events from CoreData, sorting by Time and outputting to Events Table
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
@@ -127,6 +133,7 @@ class CalendarView: UIViewController {
     }
   }
   
+  //Changing Button Label on Event Adding View Controller
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "addEventSegue" {
       if let eventVC = segue.destination as? AddEventViewController {
@@ -164,6 +171,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   
   func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
     configureCell(cell: cell, cellState: cellState)
+    print(cellState.text)
     cell?.bounce()
   }
   
@@ -183,10 +191,10 @@ extension CalendarView: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let event = events[indexPath.row]
-    let cell = EventsTableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
+    let cell = eventsTableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
     cell.textLabel?.text = event.value(forKeyPath: "name") as? String
     cell.detailTextLabel?.text = event.value(forKeyPath: "time") as? String
-    print("Trying to print to tableView")
+    //print("Trying to print to tableView")
     return cell
   }
 }

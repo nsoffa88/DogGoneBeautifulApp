@@ -10,9 +10,9 @@ import UIKit
 import CoreData
 
 class AddEventViewController: UIViewController {
-  @IBOutlet weak var dateSelection: UITextField!
+  @IBOutlet weak var timeSelection: UITextField!
   @IBOutlet weak var clientTextField: UITextField!
-  @IBOutlet weak var LocationTextField: UITextField!
+  @IBOutlet weak var locationTextField: UITextField!
   @IBOutlet weak var notesTextField: UITextField!
   @IBOutlet weak var addEventButton: UIButton!
   @IBOutlet weak var cancelEventSave: UIButton!
@@ -23,22 +23,23 @@ class AddEventViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    createDatePicker()
+    createTimePicker()
     
+    //Setting title of EventButton
     if buttonInfoObject != nil {
       addEventButton.setTitle(buttonInfoObject, for: .normal)
     }
   }
 
-  func createDatePicker() {
+  func createTimePicker() {
     let toolbar = UIToolbar()
     toolbar.sizeToFit()
     
     let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
     toolbar.setItems([done], animated: false)
     
-    dateSelection.inputAccessoryView = toolbar
-    dateSelection.inputView = picker
+    timeSelection.inputAccessoryView = toolbar
+    timeSelection.inputView = picker
     
     picker.datePickerMode = .time
   }
@@ -50,7 +51,7 @@ class AddEventViewController: UIViewController {
     timeFormatter.timeStyle = .short
     let timeString = timeFormatter.string(from: picker.date)
     
-    dateSelection.text = "\(timeString)"
+    timeSelection.text = "\(timeString)"
     self.view.endEditing(true)
   }
     
@@ -60,8 +61,8 @@ class AddEventViewController: UIViewController {
   
   @IBAction func addEventToCalendar(_ sender: Any) {
     let nameToSave =  clientTextField.text
-    let locationToSave = LocationTextField.text
-    let timeToSave = dateSelection.text
+    let locationToSave = locationTextField.text
+    let timeToSave = timeSelection.text
     let notesToSave = notesTextField.text
     
     self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!)
