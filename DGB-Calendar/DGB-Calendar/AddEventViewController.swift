@@ -20,6 +20,7 @@ class AddEventViewController: UIViewController {
   let picker = UIDatePicker()
   var events: [NSManagedObject] = []
   var buttonInfoObject: String?
+  var eventDate: String = ""
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,6 +30,7 @@ class AddEventViewController: UIViewController {
     if buttonInfoObject != nil {
       addEventButton.setTitle(buttonInfoObject, for: .normal)
     }
+    print(eventDate)
   }
 
   func createTimePicker() {
@@ -65,11 +67,11 @@ class AddEventViewController: UIViewController {
     let timeToSave = timeSelection.text
     let notesToSave = notesTextField.text
     
-    self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!)
+    self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate)
     self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
   }
   
-  func save(name: String, location: String, time: String, notes: String) {
+  func save(name: String, location: String, time: String, notes: String, date: String) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
       return
     }
@@ -84,6 +86,7 @@ class AddEventViewController: UIViewController {
     event.setValue(location, forKeyPath: "location")
     event.setValue(time, forKeyPath: "time")
     event.setValue(notes, forKeyPath: "notes")
+    event.setValue(date, forKeyPath: "date")
     
     do {
       try managedContext.save()
@@ -96,6 +99,7 @@ class AddEventViewController: UIViewController {
 //    print(event.value(forKey: "location"))
 //    print(event.value(forKey: "time"))
 //    print(event.value(forKey: "notes"))
+//    print(event.value(forKey: "date") as Any)
 //    print(events)
   }
 }

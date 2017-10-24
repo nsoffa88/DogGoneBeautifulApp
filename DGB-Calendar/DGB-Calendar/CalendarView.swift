@@ -28,6 +28,7 @@ class CalendarView: UIViewController {
   
   let todaysDate = Date()
   var events: [NSManagedObject] = []
+  var selectedDate: String = ""
   
   var eventsFromTheServer: [String: String] = [:]
   
@@ -138,6 +139,7 @@ class CalendarView: UIViewController {
     if segue.identifier == "addEventSegue" {
       if let eventVC = segue.destination as? AddEventViewController {
         eventVC.buttonInfoObject = "Add Event"
+        eventVC.eventDate = selectedDate
       }
     }
     if segue.identifier == "editEventSegue" {
@@ -171,7 +173,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   
   func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
     configureCell(cell: cell, cellState: cellState)
-    print(cellState.text)
+    selectedDate = formatter.string(from: date)
     cell?.bounce()
   }
   
