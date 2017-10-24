@@ -28,7 +28,7 @@ class CalendarView: UIViewController {
   
   let todaysDate = Date()
   var events: [NSManagedObject] = []
-  var selectedDate: String = ""
+  var selectedDate: String?
   
   var eventsFromTheServer: [String: String] = [:]
   
@@ -49,8 +49,13 @@ class CalendarView: UIViewController {
     }
     
     //Setting up Calendar
-    calendarView.scrollToDate( Date(), animateScroll: false )
-    calendarView.selectDates([ Date() ])
+    if selectedDate == nil {
+      calendarView.scrollToDate( Date(), animateScroll: false )
+      calendarView.selectDates([ Date() ])
+    } else {
+      calendarView.scrollToDate(formatter.date(from: selectedDate!)!, animateScroll: false )
+      calendarView.selectDates([formatter.date(from: selectedDate!)!])
+    }
     calendarView.minimumLineSpacing = 0
     calendarView.minimumInteritemSpacing = 0
     calendarView.scrollDirection = .vertical
@@ -61,7 +66,7 @@ class CalendarView: UIViewController {
     
     //Setting up Events Table
     eventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-    print(events)
+    //print(events)
     self.eventsTableView.reloadData()
   }
   
@@ -117,21 +122,7 @@ class CalendarView: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-      return
-    }
-    
-    let managedContext = appDelegate.persistentContainer.viewContext
-    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Event")
-    
-    let sortDescriptor = NSSortDescriptor(key: "time", ascending: true)
-    fetchRequest.sortDescriptors = [sortDescriptor]
-    
-    do {
-      events = try managedContext.fetch(fetchRequest)
-    } catch let error as NSError {
-      print("Could not fetch. \(error), \(error.userInfo)")
-    }
+    loadNSData()
   }
   
   //Changing Button Label on Event Adding View Controller
@@ -151,6 +142,31 @@ class CalendarView: UIViewController {
   
   @IBAction func addEventSegue(_ sender: Any) {
     self.performSegue(withIdentifier: "addEventSegue", sender: self)
+  }
+  
+  func loadNSData() {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return
+    }
+    
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Event")
+    
+    let sortDescriptor = NSSortDescriptor(key: "time", ascending: true)
+    fetchRequest.sortDescriptors = [sortDescriptor]
+    
+    if selectedDate == nil {
+      selectedDate = formatter.string(from: Date())
+      fetchRequest.predicate = NSPredicate(format: "date == %@", selectedDate!)
+    } else {
+      fetchRequest.predicate = NSPredicate(format: "date == %@", selectedDate!)
+    }
+    
+    do {
+      events = try managedContext.fetch(fetchRequest)
+    } catch let error as NSError {
+      print("Could not fetch. \(error), \(error.userInfo)")
+    }
   }
   
 }
@@ -174,6 +190,11 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
     configureCell(cell: cell, cellState: cellState)
     selectedDate = formatter.string(from: date)
+    
+    loadNSData()
+    
+    eventsTableView.reloadData()
+    print("called!")
     cell?.bounce()
   }
   
@@ -196,7 +217,6 @@ extension CalendarView: UITableViewDataSource {
     let cell = eventsTableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
     cell.textLabel?.text = event.value(forKeyPath: "name") as? String
     cell.detailTextLabel?.text = event.value(forKeyPath: "time") as? String
-    //print("Trying to print to tableView")
     return cell
   }
 }

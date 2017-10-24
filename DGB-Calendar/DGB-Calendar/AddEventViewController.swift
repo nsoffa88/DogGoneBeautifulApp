@@ -20,7 +20,7 @@ class AddEventViewController: UIViewController {
   let picker = UIDatePicker()
   var events: [NSManagedObject] = []
   var buttonInfoObject: String?
-  var eventDate: String = ""
+  var eventDate: String?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -56,6 +56,14 @@ class AddEventViewController: UIViewController {
     timeSelection.text = "\(timeString)"
     self.view.endEditing(true)
   }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "backToCalendarSegue" {
+      if let calendarVC = segue.destination as? CalendarView {
+        calendarVC.selectedDate = eventDate
+      }
+    }
+  }
     
   @IBAction func cancelEvent(_ sender: Any) {
     self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
@@ -67,7 +75,7 @@ class AddEventViewController: UIViewController {
     let timeToSave = timeSelection.text
     let notesToSave = notesTextField.text
     
-    self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate)
+    self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate!)
     self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
   }
   
