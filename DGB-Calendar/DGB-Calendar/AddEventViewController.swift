@@ -21,6 +21,7 @@ class AddEventViewController: UIViewController {
   var events: [NSManagedObject] = []
   var buttonInfoObject: String?
   var eventDate: String?
+  var event: Event?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,7 +31,13 @@ class AddEventViewController: UIViewController {
     if buttonInfoObject != nil {
       addEventButton.setTitle(buttonInfoObject, for: .normal)
     }
-    print(eventDate)
+    
+    if event != nil {
+      clientTextField.text = event?.client
+      timeSelection.text = event?.time
+      locationTextField.text = event?.location
+      notesTextField.text = event?.notes
+    }
   }
 
   func createTimePicker() {
@@ -57,10 +64,12 @@ class AddEventViewController: UIViewController {
     self.view.endEditing(true)
   }
   
+  //Send this event's Date back to CalendarView for the UI to still be on correct Date
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "backToCalendarSegue" {
       if let calendarVC = segue.destination as? CalendarView {
         calendarVC.selectedDate = eventDate
+        calendarVC.events = events
       }
     }
   }
@@ -70,45 +79,54 @@ class AddEventViewController: UIViewController {
   }
   
   @IBAction func addEventToCalendar(_ sender: Any) {
-    let nameToSave =  clientTextField.text
-    let locationToSave = locationTextField.text
-    let timeToSave = timeSelection.text
-    let notesToSave = notesTextField.text
+      let clientToSave =  clientTextField.text
+      let locationToSave = locationTextField.text
+      let timeToSave = timeSelection.text
+      let notesToSave = notesTextField.text
     
-    self.save(name: nameToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate!)
-    self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
+    self.save(client: clientToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate!)
+      self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
   }
   
-  func save(name: String, location: String, time: String, notes: String, date: String) {
+  func save(client: String, location: String, time: String, notes: String, date: String) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
       return
     }
-    
+  
     let managedContext = appDelegate.persistentContainer.viewContext
     
-    let entity = NSEntityDescription.entity(forEntityName: "Event", in: managedContext)
+    if buttonInfoObject == "Add Event" {
+      let entity = NSEntityDescription.entity(forEntityName: "Event", in: managedContext)
     
-    let event = NSManagedObject(entity: entity!, insertInto: managedContext)
+      let event = NSManagedObject(entity: entity!, insertInto: managedContext)
     
-    event.setValue(name, forKeyPath: "name")
-    event.setValue(location, forKeyPath: "location")
-    event.setValue(time, forKeyPath: "time")
-    event.setValue(notes, forKeyPath: "notes")
-    event.setValue(date, forKeyPath: "date")
+      event.setValue(client, forKey: "client")
+      event.setValue(location, forKey: "location")
+      event.setValue(time, forKey: "time")
+      event.setValue(notes, forKey: "notes")
+      event.setValue(date, forKey: "date")
     
-    do {
-      try managedContext.save()
-      events.append(event)
-    } catch let error as NSError {
-      print("Could not save. \(error), \(error.userInfo)")
+      do {
+        try managedContext.save()
+        events.append(event)
+      } catch let error as NSError {
+        print("Could not save. \(error), \(error.userInfo)")
+      }
+    } else {
+      let eventToChange = event as! NSManagedObject
+      
+      eventToChange.setValue(client, forKey: "client")
+      eventToChange.setValue(location, forKey: "location")
+      eventToChange.setValue(time, forKey: "time")
+      eventToChange.setValue(notes, forKey: "notes")
+      eventToChange.setValue(date, forKey: "date")
+      
+      do {
+        try eventToChange.managedObjectContext?.save()
+      } catch let error as NSError {
+        print("Could not edit. \(error), \(error.userInfo)")
+      }
     }
-//    print("Testing Save?")
-//    print(event.value(forKey: "name"))
-//    print(event.value(forKey: "location"))
-//    print(event.value(forKey: "time"))
-//    print(event.value(forKey: "notes"))
-//    print(event.value(forKey: "date") as Any)
-//    print(events)
   }
 }
 

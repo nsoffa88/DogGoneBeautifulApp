@@ -29,6 +29,8 @@ class CalendarView: UIViewController {
   let todaysDate = Date()
   var events: [NSManagedObject] = []
   var selectedDate: String?
+  var eventTableSpot: Int?
+  var event: Event?
   
   var eventsFromTheServer: [String: String] = [:]
   
@@ -136,6 +138,10 @@ class CalendarView: UIViewController {
     if segue.identifier == "editEventSegue" {
       if let eventVC = segue.destination as? AddEventViewController {
         eventVC.buttonInfoObject = "Edit Event"
+        eventVC.eventDate = selectedDate
+        eventVC.event = event
+        eventVC.events = events
+        print(event)
       }
     }
   }
@@ -144,6 +150,7 @@ class CalendarView: UIViewController {
     self.performSegue(withIdentifier: "addEventSegue", sender: self)
   }
   
+  // TODO: Only do this once on viewDidLoad, output to array, and access that array for EventTable
   func loadNSData() {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
       return
@@ -163,7 +170,7 @@ class CalendarView: UIViewController {
     }
     
     do {
-      events = try managedContext.fetch(fetchRequest)
+      events = try managedContext.fetch(fetchRequest) as! [Event]
     } catch let error as NSError {
       print("Could not fetch. \(error), \(error.userInfo)")
     }
@@ -194,7 +201,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     loadNSData()
     
     eventsTableView.reloadData()
-    print("called!")
+//    print("called!")
     cell?.bounce()
   }
   
@@ -207,7 +214,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   }
 }
 
-extension CalendarView: UITableViewDataSource {
+extension CalendarView: UITableViewDataSource, UITableViewDelegate {
   func  tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return events.count
   }
@@ -215,9 +222,15 @@ extension CalendarView: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let event = events[indexPath.row]
     let cell = eventsTableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
-    cell.textLabel?.text = event.value(forKeyPath: "name") as? String
+    cell.textLabel?.text = event.value(forKeyPath: "client") as? String
     cell.detailTextLabel?.text = event.value(forKeyPath: "time") as? String
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    print("Row: \(indexPath.row)")
+    event = events[indexPath.row] as? Event
+    self.performSegue(withIdentifier: "editEventSegue", sender: self)
   }
 }
 

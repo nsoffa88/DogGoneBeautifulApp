@@ -87,9 +87,9 @@
 				45822C111F957BB000F462F9 /* CalendarView.swift */,
 				4546B9881F96C34A006663EA /* AddEventViewController.swift */,
 				45DDD51A1F9559CE00EC942C /* CustomCell.swift */,
+				4546B9821F96BC23006663EA /* DGB-Calendar.xcdatamodeld */,
 				45DDD50F1F95502000EC942C /* Assets.xcassets */,
 				45DDD5141F95502000EC942C /* Info.plist */,
-				4546B9821F96BC23006663EA /* DGB-Calendar.xcdatamodeld */,
 			);
 			path = "DGB-Calendar";
 			sourceTree = "<group>";

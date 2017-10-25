@@ -193,9 +193,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="R9N-RQ-iM7" kind="show" identifier="editEventSegue" id="37s-MJ-KMH"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -246,6 +243,7 @@
                         <outlet property="todayButton" destination="Eyx-yL-wX7" id="2Nj-Vn-K71"/>
                         <outlet property="year" destination="Gxc-PU-FyG" id="dKA-2W-ixY"/>
                         <segue destination="R9N-RQ-iM7" kind="show" identifier="addEventSegue" id="Nwt-0A-8fM"/>
+                        <segue destination="R9N-RQ-iM7" kind="presentation" identifier="editEventSegue" id="7dw-Kv-9dr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -385,6 +383,6 @@
         <image name="reddot" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="37s-MJ-KMH"/>
+        <segue reference="7dw-Kv-9dr"/>
     </inferredMetricsTieBreakers>
 </document>
