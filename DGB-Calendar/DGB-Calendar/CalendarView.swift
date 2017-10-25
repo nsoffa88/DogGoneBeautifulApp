@@ -74,6 +74,7 @@ class CalendarView: UIViewController {
   @IBAction func todayButton(_ sender: Any) {
     calendarView.scrollToDate(Date())
     calendarView.selectDates([Date()])
+    selectedDate = formatter.string(from: Date())
   }
   
   func setupCalendarView(dateSegment: DateSegmentInfo) {

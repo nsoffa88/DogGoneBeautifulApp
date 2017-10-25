@@ -79,8 +79,6 @@ class AddEventViewController: UIViewController {
   }
   
   @IBAction func addEventToCalendar(_ sender: Any) {
-    print(clientTextField.text!)
-    print(timeSelection.text!)
     if(clientTextField.text! != "" && timeSelection.text! != "") {
       let clientToSave =  clientTextField.text
       let locationToSave = locationTextField.text
