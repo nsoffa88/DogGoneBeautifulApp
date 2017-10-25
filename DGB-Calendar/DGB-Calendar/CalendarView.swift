@@ -68,7 +68,6 @@ class CalendarView: UIViewController {
     
     //Setting up Events Table
     eventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-    //print(events)
     self.eventsTableView.reloadData()
   }
   
@@ -141,7 +140,6 @@ class CalendarView: UIViewController {
         eventVC.eventDate = selectedDate
         eventVC.event = event
         eventVC.events = events
-        print(event)
       }
     }
   }
@@ -201,7 +199,6 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     loadNSData()
     
     eventsTableView.reloadData()
-//    print("called!")
     cell?.bounce()
   }
   
@@ -228,9 +225,35 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("Row: \(indexPath.row)")
     event = events[indexPath.row] as? Event
     self.performSegue(withIdentifier: "editEventSegue", sender: self)
+  }
+  
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    return true
+  }
+  
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    guard let eventToRemove = events[indexPath.row] as? Event, editingStyle == .delete else {
+      return
+    }
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return
+    }
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    print("Trying to delete from CoreData")
+    managedContext.delete(eventToRemove)
+    do {
+      try managedContext.save()
+      print("Trying to Delete row")
+//      eventsTableView.deleteRows(at: [indexPath], with: .automatic)
+      print("Deleted row, reloading Data")
+      eventsTableView.reloadData()
+      print("Reloaded Data, should be good")
+    } catch let error as NSError {
+      print("Deleting error: \(error), \(error.userInfo)")
+    }
   }
 }
 
