@@ -18,7 +18,7 @@ class AddEventViewController: UIViewController {
   @IBOutlet weak var cancelEventSave: UIButton!
 
   let picker = UIDatePicker()
-  var events: [NSManagedObject] = []
+//  var events: [NSManagedObject] = []
   var buttonInfoObject: String?
   var eventDate: String?
   var event: Event?
@@ -69,7 +69,7 @@ class AddEventViewController: UIViewController {
     if segue.identifier == "backToCalendarSegue" {
       if let calendarVC = segue.destination as? CalendarView {
         calendarVC.selectedDate = eventDate
-        calendarVC.events = events
+//        calendarVC.events = events
       }
     }
   }
@@ -79,13 +79,25 @@ class AddEventViewController: UIViewController {
   }
   
   @IBAction func addEventToCalendar(_ sender: Any) {
+    print(clientTextField.text!)
+    print(timeSelection.text!)
+    if(clientTextField.text! != "" && timeSelection.text! != "") {
       let clientToSave =  clientTextField.text
       let locationToSave = locationTextField.text
       let timeToSave = timeSelection.text
       let notesToSave = notesTextField.text
     
-    self.save(client: clientToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate!)
+      self.save(client: clientToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate!)
       self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
+    } else {
+      let alert = UIAlertController(title: "Error",
+                                    message: "Must include atleast a Client and Time",
+                                    preferredStyle: .alert)
+      let endAlert = UIAlertAction(title: "Back",
+                                   style: .default)
+      alert.addAction(endAlert)
+      present(alert, animated: true)
+    }
   }
   
   func save(client: String, location: String, time: String, notes: String, date: String) {
@@ -108,7 +120,7 @@ class AddEventViewController: UIViewController {
     
       do {
         try managedContext.save()
-        events.append(event)
+//        events.append(event)
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }

@@ -139,7 +139,7 @@ class CalendarView: UIViewController {
         eventVC.buttonInfoObject = "Edit Event"
         eventVC.eventDate = selectedDate
         eventVC.event = event
-        eventVC.events = events
+//        eventVC.events = events
       }
     }
   }
