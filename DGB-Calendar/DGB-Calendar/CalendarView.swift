@@ -242,15 +242,11 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
     }
     let managedContext = appDelegate.persistentContainer.viewContext
     
-    print("Trying to delete from CoreData")
     managedContext.delete(eventToRemove)
     do {
       try managedContext.save()
-      print("Trying to Delete row")
-//      eventsTableView.deleteRows(at: [indexPath], with: .automatic)
-      print("Deleted row, reloading Data")
+      loadNSData()
       eventsTableView.reloadData()
-      print("Reloaded Data, should be good")
     } catch let error as NSError {
       print("Deleting error: \(error), \(error.userInfo)")
     }
