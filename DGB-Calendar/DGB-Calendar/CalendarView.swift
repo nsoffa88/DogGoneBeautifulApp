@@ -237,6 +237,7 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
       try managedContext.save()
       getEventsByDate()
       eventsTableView.reloadData()
+      calendarView.reloadData()
     } catch let error as NSError {
       print("Deleting error: \(error), \(error.userInfo)")
     }
