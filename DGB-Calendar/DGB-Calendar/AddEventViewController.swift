@@ -18,7 +18,7 @@ class AddEventViewController: UIViewController {
   @IBOutlet weak var cancelEventSave: UIButton!
 
   let picker = UIDatePicker()
-//  var events: [NSManagedObject] = []
+  var events: [Event] = []
   var buttonInfoObject: String?
   var eventDate: String?
   var event: Event?
@@ -69,7 +69,7 @@ class AddEventViewController: UIViewController {
     if segue.identifier == "backToCalendarSegue" {
       if let calendarVC = segue.destination as? CalendarView {
         calendarVC.selectedDate = eventDate
-//        calendarVC.events = events
+        calendarVC.events = events
       }
     }
   }
@@ -118,12 +118,12 @@ class AddEventViewController: UIViewController {
     
       do {
         try managedContext.save()
-//        events.append(event)
+        events.append(event as! Event)
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }
     } else {
-      let eventToChange = event as! NSManagedObject
+      let eventToChange = event! as NSManagedObject
       
       eventToChange.setValue(client, forKey: "client")
       eventToChange.setValue(location, forKey: "location")
