@@ -32,27 +32,12 @@ class CalendarView: UIViewController {
   var selectedDate: String?
   var event: Event?
   
-  var eventsFromTheServer: [String: String] = [:]
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     //Pulling from Core Data
     if events == nil {
       loadNSData()
-    }
-    
-    //Event Designation from fake Server, purely for Event Dot pop up, will replace with CoreData
-    DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-        let serverObjects = self.getServerEvents()
-        for (date, event) in serverObjects {
-            let stringDate = self.formatter.string(from: date)
-            self.eventsFromTheServer[stringDate] = event
-        }
-        
-        DispatchQueue.main.async {
-            self.calendarView.reloadData()
-        }
     }
     
     //Setting up Calendar
@@ -121,8 +106,7 @@ class CalendarView: UIViewController {
   }
   
   func cellEvents(cell: CustomCell, cellState: CellState) {
-    //Will replace with CoreData
-    cell.eventDotView.isHidden = !eventsFromTheServer.contains { $0.key == formatter.string(from: cellState.date)}
+    cell.eventDotView.isHidden = !(events?.contains { $0.date == formatter.string(from: cellState.date)})!
   }
   
   //Fetching todaysEvents from Events Array, sorting by Time and outputting to Events Table
@@ -259,20 +243,6 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
   }
 }
 
-extension CalendarView {
-  func getServerEvents() -> [Date:String] {
-    formatter.dateFormat = "yyyy MM dd"
-    
-    return[
-      formatter.date(from: "2017 10 12")!: "Happy Birthday!",
-      formatter.date(from: "2017 10 10")!: "Whaaaaat!",
-      formatter.date(from: "2017 10 01")!: "A!",
-      formatter.date(from: "2017 10 15")!: "B!",
-      formatter.date(from: "2017 10 27")!: "C!",
-    ]
-  }
-}
-
 extension UIView {
   func bounce() {
     self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
@@ -286,20 +256,6 @@ extension UIView {
     })
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
