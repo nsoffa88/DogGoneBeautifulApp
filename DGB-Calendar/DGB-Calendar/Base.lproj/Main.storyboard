@@ -243,12 +243,186 @@
                         <outlet property="todayButton" destination="Eyx-yL-wX7" id="2Nj-Vn-K71"/>
                         <outlet property="year" destination="Gxc-PU-FyG" id="dKA-2W-ixY"/>
                         <segue destination="R9N-RQ-iM7" kind="show" identifier="addEventSegue" id="Nwt-0A-8fM"/>
-                        <segue destination="R9N-RQ-iM7" kind="presentation" identifier="editEventSegue" id="7dw-Kv-9dr"/>
+                        <segue destination="iLS-Z0-Hwy" kind="show" identifier="viewEventSegue" id="PUt-jd-g4e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="363.768115942029" y="31.793478260869566"/>
+            <point key="canvasLocation" x="33" y="-325"/>
+        </scene>
+        <!--View Info View Controller-->
+        <scene sceneID="LFp-RS-LBX">
+            <objects>
+                <viewController id="iLS-Z0-Hwy" customClass="ViewInfoViewController" customModule="DGB_Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aUw-W8-qrt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bdh-ou-1Cp">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="678"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clientCell" textLabel="EQ1-s9-Z5n" detailTextLabel="2YP-lD-G1v" style="IBUITableViewCellStyleValue2" id="0bd-VH-ZKw" userLabel="Client" customClass="ClientCell" customModule="DGB_Calendar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0bd-VH-ZKw" id="bBa-52-nYF">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Client: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EQ1-s9-Z5n" userLabel="Client Label">
+                                                    <rect key="frame" x="15" y="18" width="91" height="15.666666666666666"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2YP-lD-G1v" userLabel="Client Info">
+                                                    <rect key="frame" x="112" y="18" width="35" height="15.666666666666666"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="clientNameInfo" destination="2YP-lD-G1v" id="DTu-gN-Vec"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="locationCell" textLabel="wCw-IY-wTk" detailTextLabel="lgN-0c-hK6" style="IBUITableViewCellStyleValue2" id="KGW-bo-1oi" userLabel="Location" customClass="LocationCell" customModule="DGB_Calendar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="80" width="414" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KGW-bo-1oi" id="HZM-tY-ghC">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Location:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wCw-IY-wTk" userLabel="Location Label">
+                                                    <rect key="frame" x="15" y="18" width="91" height="15.666666666666666"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lgN-0c-hK6" userLabel="Location Info">
+                                                    <rect key="frame" x="112" y="18" width="35" height="15.666666666666666"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="locationInfo" destination="lgN-0c-hK6" id="e6b-jW-xAJ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="timeCell" textLabel="4Cn-40-xPu" detailTextLabel="hsd-Sg-xfC" style="IBUITableViewCellStyleValue2" id="vie-F1-h83" userLabel="Time" customClass="TimeCell" customModule="DGB_Calendar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="132" width="414" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vie-F1-h83" id="ieg-3T-oLJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Time:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Cn-40-xPu" userLabel="Time Label">
+                                                    <rect key="frame" x="15" y="18" width="91" height="15.666666666666666"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hsd-Sg-xfC" userLabel="Time Info">
+                                                    <rect key="frame" x="112" y="18" width="35" height="15.666666666666666"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="timeInfo" destination="hsd-Sg-xfC" id="oIK-1E-lTa"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesCell" textLabel="EfZ-Bu-vp7" detailTextLabel="2qc-16-eMK" style="IBUITableViewCellStyleValue2" id="wEQ-ds-zah" userLabel="Notes" customClass="NotesCell" customModule="DGB_Calendar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="184" width="414" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wEQ-ds-zah" id="hbA-ju-SZw">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Notes" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EfZ-Bu-vp7" userLabel="Notes Label">
+                                                    <rect key="frame" x="15" y="18" width="91" height="15.666666666666666"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2qc-16-eMK" userLabel="Notes Info">
+                                                    <rect key="frame" x="112" y="18" width="35" height="15.666666666666666"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="notesInfo" destination="2qc-16-eMK" id="gMp-0F-uKZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="iLS-Z0-Hwy" id="Uko-Oi-Idx"/>
+                                    <outlet property="delegate" destination="iLS-Z0-Hwy" id="CNE-Bs-ki3"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8z-ZR-NKA">
+                                <rect key="frame" x="348" y="686" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="DOX-yP-STK"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="46" id="L7B-kz-ZBT"/>
+                                </constraints>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <segue destination="R9N-RQ-iM7" kind="show" identifier="editEventSegue" id="iRK-3j-Atz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haN-OV-90Y">
+                                <rect key="frame" x="20" y="686" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="46" id="unK-CY-zvW"/>
+                                    <constraint firstAttribute="height" constant="30" id="uzt-00-hMJ"/>
+                                </constraints>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="infoToCalendarSegue" id="Qh0-WM-ux5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="haN-OV-90Y" firstAttribute="leading" secondItem="h3f-bu-1e6" secondAttribute="leading" constant="20" id="0hd-a9-cUM"/>
+                            <constraint firstItem="h3f-bu-1e6" firstAttribute="bottom" secondItem="haN-OV-90Y" secondAttribute="bottom" constant="20" id="2W7-77-fUG"/>
+                            <constraint firstItem="h3f-bu-1e6" firstAttribute="trailing" secondItem="N8z-ZR-NKA" secondAttribute="trailing" constant="20" id="ER7-rc-7DQ"/>
+                            <constraint firstItem="Bdh-ou-1Cp" firstAttribute="leading" secondItem="h3f-bu-1e6" secondAttribute="leading" id="EnM-Lf-D1L"/>
+                            <constraint firstItem="N8z-ZR-NKA" firstAttribute="leading" secondItem="haN-OV-90Y" secondAttribute="trailing" constant="282" id="RRG-sk-cSY"/>
+                            <constraint firstItem="Bdh-ou-1Cp" firstAttribute="top" secondItem="aUw-W8-qrt" secondAttribute="top" id="TRV-ED-oD1"/>
+                            <constraint firstItem="Bdh-ou-1Cp" firstAttribute="trailing" secondItem="h3f-bu-1e6" secondAttribute="trailing" id="UAi-15-QFJ"/>
+                            <constraint firstItem="haN-OV-90Y" firstAttribute="top" secondItem="Bdh-ou-1Cp" secondAttribute="bottom" constant="8" id="Zrj-0b-7pb"/>
+                            <constraint firstItem="N8z-ZR-NKA" firstAttribute="top" secondItem="Bdh-ou-1Cp" secondAttribute="bottom" constant="8" id="lSa-em-DEe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="h3f-bu-1e6"/>
+                    </view>
+                    <connections>
+                        <outlet property="backToCalendar" destination="haN-OV-90Y" id="QeZ-vs-k4V"/>
+                        <outlet property="editEvent" destination="N8z-ZR-NKA" id="QcM-ft-tWc"/>
+                        <outlet property="eventInfoTableView" destination="Bdh-ou-1Cp" id="Ki4-la-Jg1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VCb-xY-tph" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="895.6521739130435" y="243.75000000000003"/>
         </scene>
         <!--Add Event View Controller-->
         <scene sceneID="kXd-rj-0wq">
@@ -327,6 +501,7 @@
                                 <state key="normal" title="Event Button"/>
                                 <connections>
                                     <action selector="addEventToCalendar:" destination="R9N-RQ-iM7" eventType="touchUpInside" id="JND-20-kaM"/>
+                                    <segue destination="iLS-Z0-Hwy" kind="show" identifier="doneEditingSegue" id="54g-DL-f5f"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3u-wz-Hp4">
@@ -376,13 +551,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="27S-4z-0Z5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1269.5652173913045" y="31.793478260869566"/>
+            <point key="canvasLocation" x="1797" y="-341"/>
         </scene>
     </scenes>
     <resources>
         <image name="reddot" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7dw-Kv-9dr"/>
+        <segue reference="Nwt-0A-8fM"/>
+        <segue reference="PUt-jd-g4e"/>
+        <segue reference="Qh0-WM-ux5"/>
     </inferredMetricsTieBreakers>
 </document>

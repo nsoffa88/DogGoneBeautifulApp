@@ -18,7 +18,7 @@ class AddEventViewController: UIViewController {
   @IBOutlet weak var cancelEventSave: UIButton!
 
   let picker = UIDatePicker()
-  var events: [Event] = []
+  var events: [Event]?
   var buttonInfoObject: String?
   var eventDate: String?
   var event: Event?
@@ -72,10 +72,20 @@ class AddEventViewController: UIViewController {
         calendarVC.events = events
       }
     }
+    if segue.identifier == "doneEditingSegue" {
+      if let viewEventVC = segue.destination as? ViewInfoViewController {
+        viewEventVC.event = event
+        viewEventVC.eventDate = eventDate
+      }
+    }
   }
     
   @IBAction func cancelEvent(_ sender: Any) {
-    self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
+    if event == nil {
+      self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
+    } else {
+      self.performSegue(withIdentifier: "doneEditingSegue", sender: self)
+    }
   }
   
   @IBAction func addEventToCalendar(_ sender: Any) {
@@ -86,7 +96,6 @@ class AddEventViewController: UIViewController {
       let notesToSave = notesTextField.text
     
       self.save(client: clientToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate!)
-      self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
     } else {
       let alert = UIAlertController(title: "Error",
                                     message: "Must include atleast a Client and Time",
@@ -118,7 +127,8 @@ class AddEventViewController: UIViewController {
     
       do {
         try managedContext.save()
-        events.append(event as! Event)
+        events!.append(event as! Event)
+        self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }
@@ -133,6 +143,7 @@ class AddEventViewController: UIViewController {
       
       do {
         try eventToChange.managedObjectContext?.save()
+        self.performSegue(withIdentifier: "doneEditingSegue", sender: self)
       } catch let error as NSError {
         print("Could not edit. \(error), \(error.userInfo)")
       }

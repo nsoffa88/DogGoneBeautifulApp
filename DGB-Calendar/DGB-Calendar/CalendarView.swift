@@ -116,21 +116,19 @@ class CalendarView: UIViewController {
     getEventsByDate()
   }
   
-  //Changing Button Label on Event Adding View Controller
+  //Passing variables between ViewControllers
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "addEventSegue" {
-      if let eventVC = segue.destination as? AddEventViewController {
-        eventVC.buttonInfoObject = "Add Event"
-        eventVC.eventDate = selectedDate
-        eventVC.events = events!
+      if let addEventVC = segue.destination as? AddEventViewController {
+        addEventVC.buttonInfoObject = "Add Event"
+        addEventVC.eventDate = selectedDate
+        addEventVC.events = events!
       }
     }
-    if segue.identifier == "editEventSegue" {
-      if let eventVC = segue.destination as? AddEventViewController {
-        eventVC.buttonInfoObject = "Edit Event"
-        eventVC.eventDate = selectedDate
-        eventVC.event = event
-        eventVC.events = events!
+    if segue.identifier == "viewEventSegue" {
+      if let viewEventVC = segue.destination as? ViewInfoViewController {
+        viewEventVC.eventDate = selectedDate
+        viewEventVC.event = event!
       }
     }
   }
@@ -168,6 +166,7 @@ class CalendarView: UIViewController {
 
 extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
   func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
+    formatter.dateFormat = "yyyy MM dd"
     let startDate = formatter.date(from: "2017 01 01")!
     let endDate = formatter.date(from: "2017 12 31")!
     
@@ -202,7 +201,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
 }
 
 extension CalendarView: UITableViewDataSource, UITableViewDelegate {
-  func  tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return todaysEvents.count
   }
   
@@ -215,8 +214,8 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    event = todaysEvents[indexPath.row] as? Event
-    self.performSegue(withIdentifier: "editEventSegue", sender: self)
+    event = todaysEvents[indexPath.row] as Event
+    self.performSegue(withIdentifier: "viewEventSegue", sender: self)
   }
   
   func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
