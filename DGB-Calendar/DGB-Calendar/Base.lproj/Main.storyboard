@@ -258,8 +258,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bdh-ou-1Cp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="678"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bdh-ou-1Cp">
+                                <rect key="frame" x="0.0" y="20" width="414" height="658"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clientCell" textLabel="EQ1-s9-Z5n" detailTextLabel="2YP-lD-G1v" style="IBUITableViewCellStyleValue2" id="0bd-VH-ZKw" userLabel="Client" customClass="ClientCell" customModule="DGB_Calendar" customModuleProvider="target">
@@ -407,9 +407,9 @@
                             <constraint firstItem="h3f-bu-1e6" firstAttribute="trailing" secondItem="N8z-ZR-NKA" secondAttribute="trailing" constant="20" id="ER7-rc-7DQ"/>
                             <constraint firstItem="Bdh-ou-1Cp" firstAttribute="leading" secondItem="h3f-bu-1e6" secondAttribute="leading" id="EnM-Lf-D1L"/>
                             <constraint firstItem="N8z-ZR-NKA" firstAttribute="leading" secondItem="haN-OV-90Y" secondAttribute="trailing" constant="282" id="RRG-sk-cSY"/>
-                            <constraint firstItem="Bdh-ou-1Cp" firstAttribute="top" secondItem="aUw-W8-qrt" secondAttribute="top" id="TRV-ED-oD1"/>
                             <constraint firstItem="Bdh-ou-1Cp" firstAttribute="trailing" secondItem="h3f-bu-1e6" secondAttribute="trailing" id="UAi-15-QFJ"/>
                             <constraint firstItem="haN-OV-90Y" firstAttribute="top" secondItem="Bdh-ou-1Cp" secondAttribute="bottom" constant="8" id="Zrj-0b-7pb"/>
+                            <constraint firstItem="Bdh-ou-1Cp" firstAttribute="top" secondItem="h3f-bu-1e6" secondAttribute="top" id="ieS-3o-wYV"/>
                             <constraint firstItem="N8z-ZR-NKA" firstAttribute="top" secondItem="Bdh-ou-1Cp" secondAttribute="bottom" constant="8" id="lSa-em-DEe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h3f-bu-1e6"/>
@@ -558,8 +558,8 @@
         <image name="reddot" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nwt-0A-8fM"/>
-        <segue reference="PUt-jd-g4e"/>
+        <segue reference="iRK-3j-Atz"/>
+        <segue reference="54g-DL-f5f"/>
         <segue reference="Qh0-WM-ux5"/>
     </inferredMetricsTieBreakers>
 </document>
