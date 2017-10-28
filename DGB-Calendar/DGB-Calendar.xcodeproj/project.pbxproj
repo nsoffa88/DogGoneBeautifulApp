@@ -15,6 +15,9 @@
 		4596903F1FA3B09C008C3B2C /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4596903E1FA3B09C008C3B2C /* LocationCell.swift */; };
 		459690411FA3B0E0008C3B2C /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459690401FA3B0E0008C3B2C /* TimeCell.swift */; };
 		459690451FA3B115008C3B2C /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459690441FA3B115008C3B2C /* NotesCell.swift */; };
+		459690481FA3FBB5008C3B2C /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459690471FA3FBB5008C3B2C /* ClientViewController.swift */; };
+		4596904C1FA3FEB5008C3B2C /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4596904B1FA3FEB5008C3B2C /* ClientInfoViewController.swift */; };
+		4596904E1FA3FED4008C3B2C /* AddClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4596904D1FA3FED4008C3B2C /* AddClientViewController.swift */; };
 		45DDD5091F95502000EC942C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDD5081F95502000EC942C /* AppDelegate.swift */; };
 		45DDD50E1F95502000EC942C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD50C1F95502000EC942C /* Main.storyboard */; };
 		45DDD5101F95502000EC942C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD50F1F95502000EC942C /* Assets.xcassets */; };
@@ -31,6 +34,9 @@
 		4596903E1FA3B09C008C3B2C /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		459690401FA3B0E0008C3B2C /* TimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		459690441FA3B115008C3B2C /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
+		459690471FA3FBB5008C3B2C /* ClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
+		4596904B1FA3FEB5008C3B2C /* ClientInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
+		4596904D1FA3FED4008C3B2C /* AddClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClientViewController.swift; sourceTree = "<group>"; };
 		45DDD5051F95502000EC942C /* DGB-Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DGB-Calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DDD5081F95502000EC942C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45DDD50D1F95502000EC942C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -71,6 +77,39 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		459690461FA3FB5E008C3B2C /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				45DDD51A1F9559CE00EC942C /* CustomCell.swift */,
+				4596903C1FA3AE9E008C3B2C /* ClientCell.swift */,
+				4596903E1FA3B09C008C3B2C /* LocationCell.swift */,
+				459690401FA3B0E0008C3B2C /* TimeCell.swift */,
+				459690441FA3B115008C3B2C /* NotesCell.swift */,
+			);
+			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		459690491FA3FE6B008C3B2C /* Calendar Files */ = {
+			isa = PBXGroup;
+			children = (
+				459690461FA3FB5E008C3B2C /* CustomCells */,
+				452865521FA26E7800680D91 /* ViewInfoViewController.swift */,
+				45822C111F957BB000F462F9 /* CalendarView.swift */,
+				4546B9881F96C34A006663EA /* AddEventViewController.swift */,
+			);
+			path = "Calendar Files";
+			sourceTree = "<group>";
+		};
+		4596904A1FA3FE90008C3B2C /* Client Files */ = {
+			isa = PBXGroup;
+			children = (
+				459690471FA3FBB5008C3B2C /* ClientViewController.swift */,
+				4596904B1FA3FEB5008C3B2C /* ClientInfoViewController.swift */,
+				4596904D1FA3FED4008C3B2C /* AddClientViewController.swift */,
+			);
+			path = "Client Files";
+			sourceTree = "<group>";
+		};
 		45DDD4FC1F95502000EC942C = {
 			isa = PBXGroup;
 			children = (
@@ -92,16 +131,10 @@
 		45DDD5071F95502000EC942C /* DGB-Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				4596904A1FA3FE90008C3B2C /* Client Files */,
+				459690491FA3FE6B008C3B2C /* Calendar Files */,
 				45DDD50C1F95502000EC942C /* Main.storyboard */,
-				452865521FA26E7800680D91 /* ViewInfoViewController.swift */,
 				45DDD5081F95502000EC942C /* AppDelegate.swift */,
-				45822C111F957BB000F462F9 /* CalendarView.swift */,
-				4546B9881F96C34A006663EA /* AddEventViewController.swift */,
-				45DDD51A1F9559CE00EC942C /* CustomCell.swift */,
-				4596903C1FA3AE9E008C3B2C /* ClientCell.swift */,
-				4596903E1FA3B09C008C3B2C /* LocationCell.swift */,
-				459690401FA3B0E0008C3B2C /* TimeCell.swift */,
-				459690441FA3B115008C3B2C /* NotesCell.swift */,
 				4546B9821F96BC23006663EA /* DGB-Calendar.xcdatamodeld */,
 				45DDD50F1F95502000EC942C /* Assets.xcassets */,
 				45DDD5141F95502000EC942C /* Info.plist */,
@@ -238,7 +271,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4596903D1FA3AE9E008C3B2C /* ClientCell.swift in Sources */,
+				459690481FA3FBB5008C3B2C /* ClientViewController.swift in Sources */,
 				4546B9841F96BC23006663EA /* DGB-Calendar.xcdatamodeld in Sources */,
+				4596904E1FA3FED4008C3B2C /* AddClientViewController.swift in Sources */,
+				4596904C1FA3FEB5008C3B2C /* ClientInfoViewController.swift in Sources */,
 				452865531FA26E7800680D91 /* ViewInfoViewController.swift in Sources */,
 				459690411FA3B0E0008C3B2C /* TimeCell.swift in Sources */,
 				4546B9891F96C34A006663EA /* AddEventViewController.swift in Sources */,
