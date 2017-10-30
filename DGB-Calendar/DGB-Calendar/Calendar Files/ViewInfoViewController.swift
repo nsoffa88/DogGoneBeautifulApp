@@ -11,8 +11,7 @@ import UIKit
 class ViewInfoViewController: UIViewController {
   
   @IBOutlet weak var eventInfoTableView: UITableView!
-  @IBOutlet weak var backToCalendar: UIButton!
-  @IBOutlet weak var editEvent: UIButton!
+
   
   var eventDate: String?
   var event: Event?
@@ -58,7 +57,7 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
       return cell
     } else {
       let cell: NotesCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "notesCell", for: indexPath) as! NotesCell
-      cell.notesInfo.text = event!.notes
+      cell.notesInfo.text = event?.notes
       return cell
     }
   }

@@ -93,8 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				459690461FA3FB5E008C3B2C /* CustomCells */,
-				452865521FA26E7800680D91 /* ViewInfoViewController.swift */,
 				45822C111F957BB000F462F9 /* CalendarView.swift */,
+				452865521FA26E7800680D91 /* ViewInfoViewController.swift */,
 				4546B9881F96C34A006663EA /* AddEventViewController.swift */,
 			);
 			path = "Calendar Files";

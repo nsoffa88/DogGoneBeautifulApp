@@ -126,16 +126,15 @@ class CalendarView: UIViewController {
       }
     }
     if segue.identifier == "viewEventSegue" {
-      if let viewEventVC = segue.destination as? ViewInfoViewController {
+      let destinationNavController = segue.destination as! UINavigationController
+      if let viewEventVC = destinationNavController.topViewController as? ViewInfoViewController {
         viewEventVC.eventDate = selectedDate
         viewEventVC.event = event!
       }
     }
   }
   
-  @IBAction func addEventSegue(_ sender: Any) {
-    self.performSegue(withIdentifier: "addEventSegue", sender: self)
-  }
+  
   
   // Only do this once on viewDidLoad, output to array, and access that array for EventTable
   func loadNSData() {
@@ -161,6 +160,9 @@ class CalendarView: UIViewController {
       }
     }
     todaysEvents.sort(by: { $0.time! < $1.time! })
+  }
+  
+  @IBAction func doneViewingInfo(_ segue: UIStoryboardSegue) {
   }
 }
 
