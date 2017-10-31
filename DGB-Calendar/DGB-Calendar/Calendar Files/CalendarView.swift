@@ -68,11 +68,11 @@ class CalendarView: UIViewController {
   
   func setupCalendarView(dateSegment: DateSegmentInfo) {
     guard let date = dateSegment.monthDates.first?.date else { return }
-    formatter.dateFormat = "MMM"
-    month.text = formatter.string(from: date)
+    formatter.dateFormat = "MMMM"
+    month.text = "  " + formatter.string(from: date)
     
     formatter.dateFormat = "yyyy"
-    year.text = formatter.string(from: date)
+    year.text = "  " + formatter.string(from: date)
   }
   
   func configureCell(cell: JTAppleCell?, cellState: CellState) {
