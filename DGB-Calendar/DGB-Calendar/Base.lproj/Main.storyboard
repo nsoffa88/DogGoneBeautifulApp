@@ -236,7 +236,7 @@
                     <navigationItem key="navigationItem" title="Calendar" id="6o9-iS-5uU">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ozK-tP-79V">
                             <connections>
-                                <segue destination="R9N-RQ-iM7" kind="presentation" identifier="addEventSegue" id="00d-n8-eBI"/>
+                                <segue destination="H9h-ol-7sq" kind="presentation" identifier="addEventSegue" id="00d-n8-eBI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -415,7 +415,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="fuM-qI-BqN">
                             <connections>
-                                <segue destination="R9N-RQ-iM7" kind="presentation" id="zAB-3V-ZHo"/>
+                                <segue destination="H9h-ol-7sq" kind="presentation" identifier="editEventSegue" id="zAB-3V-ZHo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -437,13 +437,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Client:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0a-6m-m7A" userLabel="Client Label">
-                                <rect key="frame" x="20" y="40" width="49" height="21"/>
+                                <rect key="frame" x="20" y="84" width="49" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DMV-4M-5UC" userLabel="Client Text Field">
-                                <rect key="frame" x="111" y="35" width="283" height="30"/>
+                                <rect key="frame" x="111" y="79" width="283" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="283" id="OkN-dK-GcS"/>
                                     <constraint firstAttribute="height" constant="30" id="azj-lN-1qg"/>
@@ -453,13 +453,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mai-i8-xm0" userLabel="Location Label">
-                                <rect key="frame" x="20" y="86" width="71" height="21"/>
+                                <rect key="frame" x="20" y="130" width="71" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wkb-wa-IC8" userLabel="Location Text Field">
-                                <rect key="frame" x="111" y="80" width="283" height="30"/>
+                                <rect key="frame" x="111" y="124" width="283" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="OaU-Xa-HOp"/>
                                     <constraint firstAttribute="width" constant="283" id="xeR-3u-N2E"/>
@@ -469,13 +469,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UD5-l0-4Em" userLabel="Time Label">
-                                <rect key="frame" x="20" y="132" width="43" height="21"/>
+                                <rect key="frame" x="20" y="176" width="43" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zp-WJ-2j1">
-                                <rect key="frame" x="111" y="125" width="283" height="30"/>
+                                <rect key="frame" x="111" y="169" width="283" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="XD1-Kc-09C"/>
                                     <constraint firstAttribute="width" constant="283" id="mef-4B-cYN"/>
@@ -485,13 +485,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUW-1N-M2t" userLabel="Notes Label">
-                                <rect key="frame" x="20" y="178" width="51" height="21"/>
+                                <rect key="frame" x="20" y="222" width="51" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgo-w8-pUV">
-                                <rect key="frame" x="111" y="170" width="283" height="30"/>
+                                <rect key="frame" x="111" y="214" width="283" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="283" id="1n5-Im-H6Y"/>
                                     <constraint firstAttribute="height" constant="30" id="8qI-lE-pJ4"/>
@@ -500,29 +500,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8r2-Mb-Siv">
-                                <rect key="frame" x="163" y="215" width="88" height="30"/>
-                                <state key="normal" title="Event Button"/>
-                                <connections>
-                                    <action selector="addEventToCalendar:" destination="R9N-RQ-iM7" eventType="touchUpInside" id="JND-20-kaM"/>
-                                    <segue destination="77y-MK-KLD" kind="show" identifier="doneEditingSegue" id="54g-DL-f5f"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3u-wz-Hp4">
-                                <rect key="frame" x="183" y="273" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancelEvent:" destination="R9N-RQ-iM7" eventType="touchUpInside" id="dpC-Ka-t8R"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1Jq-hI-veh" firstAttribute="trailing" secondItem="DMV-4M-5UC" secondAttribute="trailing" constant="20" id="1pt-7j-bfe"/>
                             <constraint firstItem="1Zp-WJ-2j1" firstAttribute="top" secondItem="Wkb-wa-IC8" secondAttribute="bottom" constant="15" id="4Y7-Je-H9a"/>
                             <constraint firstItem="wgo-w8-pUV" firstAttribute="top" secondItem="1Zp-WJ-2j1" secondAttribute="bottom" constant="15" id="6NF-vb-gxf"/>
-                            <constraint firstItem="8r2-Mb-Siv" firstAttribute="top" secondItem="wgo-w8-pUV" secondAttribute="bottom" constant="15" id="76l-Ga-Vd4"/>
                             <constraint firstItem="Wkb-wa-IC8" firstAttribute="leading" secondItem="mai-i8-xm0" secondAttribute="trailing" constant="20" id="85q-Dh-QeW"/>
                             <constraint firstItem="1Zp-WJ-2j1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UD5-l0-4Em" secondAttribute="trailing" constant="8" symbolic="YES" id="8tC-iV-pYW"/>
                             <constraint firstItem="U0a-6m-m7A" firstAttribute="top" secondItem="1Jq-hI-veh" secondAttribute="top" constant="20" id="ClU-Iu-4SL"/>
@@ -531,7 +514,6 @@
                             <constraint firstItem="DMV-4M-5UC" firstAttribute="top" secondItem="1Jq-hI-veh" secondAttribute="top" constant="15" id="KRd-cC-KW9"/>
                             <constraint firstItem="mai-i8-xm0" firstAttribute="leading" secondItem="1Jq-hI-veh" secondAttribute="leading" constant="20" id="N1v-Dg-C9t"/>
                             <constraint firstItem="UD5-l0-4Em" firstAttribute="leading" secondItem="3GD-um-Jt1" secondAttribute="leading" constant="20" id="Spq-wG-5PC"/>
-                            <constraint firstItem="8r2-Mb-Siv" firstAttribute="centerX" secondItem="3GD-um-Jt1" secondAttribute="centerX" id="X2B-RR-LaA"/>
                             <constraint firstItem="U0a-6m-m7A" firstAttribute="leading" secondItem="3GD-um-Jt1" secondAttribute="leading" constant="20" id="XqD-xM-u61"/>
                             <constraint firstItem="1Jq-hI-veh" firstAttribute="trailing" secondItem="1Zp-WJ-2j1" secondAttribute="trailing" constant="20" id="Yt3-i9-4pT"/>
                             <constraint firstItem="hUW-1N-M2t" firstAttribute="leading" secondItem="1Jq-hI-veh" secondAttribute="leading" constant="20" id="ZLB-s2-uCN"/>
@@ -543,19 +525,31 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1Jq-hI-veh"/>
                     </view>
+                    <navigationItem key="navigationItem" id="XQB-3M-Nyw">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Alx-ND-Xg5">
+                            <connections>
+                                <segue destination="TTK-OG-qsM" kind="unwind" unwindAction="doneSavingEvent:" id="9rV-37-gVb"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="LrC-og-kBM">
+                            <connections>
+                                <action selector="saveEvent:" destination="R9N-RQ-iM7" id="aI5-n2-n3H"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="addEventButton" destination="8r2-Mb-Siv" id="wn1-4Y-p8g"/>
-                        <outlet property="cancelEventSave" destination="S3u-wz-Hp4" id="new-6A-wcr"/>
                         <outlet property="clientTextField" destination="DMV-4M-5UC" id="Hs7-K1-LIK"/>
                         <outlet property="locationTextField" destination="Wkb-wa-IC8" id="6rf-VD-a3O"/>
                         <outlet property="notesTextField" destination="wgo-w8-pUV" id="haY-fW-vcf"/>
+                        <outlet property="saveEventButton" destination="LrC-og-kBM" id="6n8-aY-wcT"/>
                         <outlet property="timeSelection" destination="1Zp-WJ-2j1" id="EDy-Yo-HeF"/>
                         <segue destination="yFb-tS-vED" kind="show" identifier="backToCalendarSegue" id="CXj-V3-SWb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="27S-4z-0Z5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="TTK-OG-qsM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1930.4347826086957" y="-917.11956521739137"/>
+            <point key="canvasLocation" x="2503" y="-938"/>
         </scene>
         <!--Calendar-->
         <scene sceneID="VkJ-He-Uhx">
@@ -594,13 +588,30 @@
             </objects>
             <point key="canvasLocation" x="306" y="-254"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Yt6-jU-8Ro">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="H9h-ol-7sq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KvH-sn-4CQ">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="R9N-RQ-iM7" kind="relationship" relationship="rootViewController" id="5qW-30-qc9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3E5-Nt-ogq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1876" y="-937"/>
+        </scene>
     </scenes>
     <resources>
         <image name="reddot" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PUt-jd-g4e"/>
+        <segue reference="00d-n8-eBI"/>
         <segue reference="CXj-V3-SWb"/>
-        <segue reference="zAB-3V-ZHo"/>
     </inferredMetricsTieBreakers>
 </document>

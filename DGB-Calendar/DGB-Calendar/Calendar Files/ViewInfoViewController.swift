@@ -12,7 +12,6 @@ class ViewInfoViewController: UIViewController {
   
   @IBOutlet weak var eventInfoTableView: UITableView!
 
-  
   var eventDate: String?
   var event: Event?
 
@@ -22,18 +21,24 @@ class ViewInfoViewController: UIViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "editEventSegue" {
-      if let editVC = segue.destination as? AddEventViewController {
-        editVC.buttonInfoObject = "Edit Event"
+      let destinationNavController = segue.destination as! UINavigationController
+      if let editVC = destinationNavController.topViewController as? AddEventViewController {
+        editVC.newEvent = false
         editVC.eventDate = eventDate
         editVC.event = event
       }
     }
     if segue.identifier == "infoToCalendarSegue" {
-      if let calendarVC = segue.destination as? CalendarView {
+      let destinationNavController = segue.destination as! UINavigationController
+      if let calendarVC = destinationNavController.topViewController as? CalendarView {
         calendarVC.selectedDate = eventDate
       }
     }
   }
+  
+  @IBAction func doneSavingEvent(_ segue: UIStoryboardSegue) {
+  }
+  
 }
 
 extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {

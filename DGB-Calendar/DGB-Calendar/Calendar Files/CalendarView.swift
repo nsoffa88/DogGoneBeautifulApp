@@ -16,7 +16,6 @@ class CalendarView: UIViewController {
   @IBOutlet weak var month: UILabel!
   @IBOutlet weak var todayButton: UIButton!
   @IBOutlet weak var eventsTableView: UITableView!
-  @IBOutlet weak var addEventButton: UIButton!
   
   let formatter: DateFormatter = {
     let dateFormatter = DateFormatter()
@@ -112,15 +111,15 @@ class CalendarView: UIViewController {
   //Fetching todaysEvents from Events Array, sorting by Time and outputting to Events Table
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
     getEventsByDate()
   }
   
   //Passing variables between ViewControllers
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "addEventSegue" {
-      if let addEventVC = segue.destination as? AddEventViewController {
-        addEventVC.buttonInfoObject = "Add Event"
+      let destinationNavController = segue.destination as! UINavigationController
+      if let addEventVC = destinationNavController.topViewController as? AddEventViewController {
+        addEventVC.newEvent = true
         addEventVC.eventDate = selectedDate
         addEventVC.events = events!
       }
@@ -162,7 +161,10 @@ class CalendarView: UIViewController {
     todaysEvents.sort(by: { $0.time! < $1.time! })
   }
   
+  // Functions for NavBar
   @IBAction func doneViewingInfo(_ segue: UIStoryboardSegue) {
+  }
+  @IBAction func doneSavingEvent(_ segue: UIStoryboardSegue) {
   }
 }
 

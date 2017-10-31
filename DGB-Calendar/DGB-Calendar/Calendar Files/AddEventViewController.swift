@@ -14,23 +14,17 @@ class AddEventViewController: UIViewController {
   @IBOutlet weak var clientTextField: UITextField!
   @IBOutlet weak var locationTextField: UITextField!
   @IBOutlet weak var notesTextField: UITextField!
-  @IBOutlet weak var addEventButton: UIButton!
-  @IBOutlet weak var cancelEventSave: UIButton!
-
+  @IBOutlet weak var saveEventButton: UIBarButtonItem!
+  
   let picker = UIDatePicker()
   var events: [Event]?
-  var buttonInfoObject: String?
+  var newEvent: Bool?
   var eventDate: String?
   var event: Event?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     createTimePicker()
-    
-    //Setting title of EventButton
-    if buttonInfoObject != nil {
-      addEventButton.setTitle(buttonInfoObject, for: .normal)
-    }
     
     if event != nil {
       clientTextField.text = event?.client
@@ -79,22 +73,14 @@ class AddEventViewController: UIViewController {
       }
     }
   }
-    
-  @IBAction func cancelEvent(_ sender: Any) {
-    if event == nil {
-      self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
-    } else {
-      self.performSegue(withIdentifier: "doneEditingSegue", sender: self)
-    }
-  }
   
-  @IBAction func addEventToCalendar(_ sender: Any) {
+  @IBAction func saveEvent(_ sender: Any) {
     if(clientTextField.text! != "" && timeSelection.text! != "") {
       let clientToSave =  clientTextField.text
       let locationToSave = locationTextField.text
       let timeToSave = timeSelection.text
       let notesToSave = notesTextField.text
-    
+      
       self.save(client: clientToSave!, location: locationToSave!, time: timeToSave!, notes: notesToSave!, date: eventDate!)
     } else {
       let alert = UIAlertController(title: "Error",
@@ -114,7 +100,7 @@ class AddEventViewController: UIViewController {
   
     let managedContext = appDelegate.persistentContainer.viewContext
     
-    if buttonInfoObject == "Add Event" {
+    if newEvent == true {
       let entity = NSEntityDescription.entity(forEntityName: "Event", in: managedContext)
     
       let event = NSManagedObject(entity: entity!, insertInto: managedContext)
