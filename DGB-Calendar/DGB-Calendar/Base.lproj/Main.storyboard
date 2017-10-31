@@ -170,7 +170,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyx-yL-wX7">
-                                <rect key="frame" x="186" y="698" width="42" height="30"/>
+                                <rect key="frame" x="186" y="649" width="42" height="30"/>
                                 <state key="normal" title="Today">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -179,7 +179,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RMI-hq-7jU">
-                                <rect key="frame" x="0.0" y="464" width="414" height="226"/>
+                                <rect key="frame" x="0.0" y="464" width="414" height="177"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" textLabel="uxi-uZ-72e" detailTextLabel="Ouw-Kj-hXU" style="IBUITableViewCellStyleValue1" id="yG1-sI-2hC">
@@ -273,7 +273,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bdh-ou-1Cp">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="clientCell" textLabel="EQ1-s9-Z5n" detailTextLabel="2YP-lD-G1v" style="IBUITableViewCellStyleValue2" id="0bd-VH-ZKw" userLabel="Client" customClass="ClientCell" customModule="DGB_Calendar" customModuleProvider="target">
@@ -405,7 +405,7 @@
                     <navigationItem key="navigationItem" title="Event Info" id="bat-R6-EZT">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="vWE-BV-JDO">
                             <connections>
-                                <segue destination="aSN-Cf-8XE" kind="unwind" unwindAction="doneViewingInfo:" id="Itk-Ap-TTg"/>
+                                <segue destination="aSN-Cf-8XE" kind="unwind" identifier="doneViewingInfo" unwindAction="doneViewingInfo:" id="Itk-Ap-TTg"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="fuM-qI-BqN">
@@ -523,7 +523,7 @@
                     <navigationItem key="navigationItem" title="Enter Event Info" id="XQB-3M-Nyw">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="Alx-ND-Xg5">
                             <connections>
-                                <segue destination="TTK-OG-qsM" kind="unwind" unwindAction="doneSavingEvent:" id="9rV-37-gVb"/>
+                                <segue destination="TTK-OG-qsM" kind="unwind" identifier="doneSavingEvent" unwindAction="doneSavingEvent:" id="9rV-37-gVb"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="LrC-og-kBM">
@@ -538,7 +538,6 @@
                         <outlet property="notesTextField" destination="wgo-w8-pUV" id="haY-fW-vcf"/>
                         <outlet property="saveEventButton" destination="LrC-og-kBM" id="6n8-aY-wcT"/>
                         <outlet property="timeSelection" destination="1Zp-WJ-2j1" id="EDy-Yo-HeF"/>
-                        <segue destination="yFb-tS-vED" kind="show" identifier="backToCalendarSegue" id="CXj-V3-SWb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="27S-4z-0Z5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -606,7 +605,6 @@
         <image name="reddot" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="00d-n8-eBI"/>
-        <segue reference="CXj-V3-SWb"/>
+        <segue reference="zAB-3V-ZHo"/>
     </inferredMetricsTieBreakers>
 </document>

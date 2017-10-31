@@ -37,6 +37,7 @@ class ViewInfoViewController: UIViewController {
   }
   
   @IBAction func doneSavingEvent(_ segue: UIStoryboardSegue) {
+    eventInfoTableView.reloadData()
   }
   
 }

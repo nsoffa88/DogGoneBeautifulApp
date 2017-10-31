@@ -48,7 +48,6 @@ class AddEventViewController: UIViewController {
   }
   
   @objc func donePressed() {
-    
     let timeFormatter = DateFormatter()
     timeFormatter.dateStyle = .none
     timeFormatter.timeStyle = .short
@@ -56,22 +55,6 @@ class AddEventViewController: UIViewController {
     
     timeSelection.text = "\(timeString)"
     self.view.endEditing(true)
-  }
-  
-  //Send this event's Date back to CalendarView for the UI to still be on correct Date
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == "backToCalendarSegue" {
-      if let calendarVC = segue.destination as? CalendarView {
-        calendarVC.selectedDate = eventDate
-        calendarVC.events = events
-      }
-    }
-    if segue.identifier == "doneEditingSegue" {
-      if let viewEventVC = segue.destination as? ViewInfoViewController {
-        viewEventVC.event = event
-        viewEventVC.eventDate = eventDate
-      }
-    }
   }
   
   @IBAction func saveEvent(_ sender: Any) {
@@ -114,7 +97,7 @@ class AddEventViewController: UIViewController {
       do {
         try managedContext.save()
         events!.append(event as! Event)
-        self.performSegue(withIdentifier: "backToCalendarSegue", sender: self)
+        self.performSegue(withIdentifier: "doneSavingEvent", sender: self)
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }
@@ -129,7 +112,7 @@ class AddEventViewController: UIViewController {
       
       do {
         try eventToChange.managedObjectContext?.save()
-        self.performSegue(withIdentifier: "doneEditingSegue", sender: self)
+        self.performSegue(withIdentifier: "doneSavingEvent", sender: self)
       } catch let error as NSError {
         print("Could not edit. \(error), \(error.userInfo)")
       }

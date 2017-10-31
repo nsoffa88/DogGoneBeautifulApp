@@ -163,8 +163,16 @@ class CalendarView: UIViewController {
   
   // Functions for NavBar
   @IBAction func doneViewingInfo(_ segue: UIStoryboardSegue) {
+    loadNSData()
+    getEventsByDate()
+    calendarView.reloadData()
+    eventsTableView.reloadData()
   }
   @IBAction func doneSavingEvent(_ segue: UIStoryboardSegue) {
+    loadNSData()
+    getEventsByDate()
+    calendarView.reloadData()
+    eventsTableView.reloadData()
   }
 }
 
