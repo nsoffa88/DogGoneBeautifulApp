@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13241" systemVersion="" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Client" representedClassName="Client" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17B48" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Client" representedClassName=".Client" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="clientName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="referrals" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="referredBy" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="dogs" toMany="YES" deletionRule="Nullify" destinationEntity="Dog" inverseName="owner" inverseEntity="Dog" syncable="YES"/>
     </entity>
-    <entity name="Dog" representedClassName="Dog" syncable="YES" codeGenerationType="class">
+    <entity name="Dog" representedClassName=".Dog" syncable="YES">
         <attribute name="age" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="breed" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dogName" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,6 +20,7 @@
         <attribute name="procedure" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shampoo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vet" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Client" inverseName="dogs" inverseEntity="Client" syncable="YES"/>
     </entity>
     <entity name="Event" representedClassName="Event" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
@@ -28,8 +30,8 @@
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Client" positionX="-225" positionY="102" width="128" height="135"/>
-        <element name="Dog" positionX="-27" positionY="63" width="128" height="195"/>
+        <element name="Client" positionX="-225" positionY="102" width="128" height="150"/>
+        <element name="Dog" positionX="-27" positionY="63" width="128" height="210"/>
         <element name="Event" positionX="-297" positionY="-75" width="128" height="120"/>
     </elements>
 </model>
