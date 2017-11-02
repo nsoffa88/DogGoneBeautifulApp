@@ -53,11 +53,11 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
   //First Section holds clients info, any section after that holds dog info
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //    if section == 0 {
-//      return Client.entity().attributesByName.count
+      return Client.entity().attributesByName.count
 //    } else {
 //      return Dog.entity().attributesByName.count
 //    }
-    return 6
+
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

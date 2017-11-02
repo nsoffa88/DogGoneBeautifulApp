@@ -55,6 +55,9 @@ class ClientViewController: UIViewController {
     
     let managedContext = appDelegate.persistentContainer.viewContext
     let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Client")
+    let alphabeticalSortDescriptor = NSSortDescriptor(key: "clientName", ascending: true)
+    let sortDescriptors = [alphabeticalSortDescriptor]
+    fetchRequest.sortDescriptors = sortDescriptors
     
     do {
       clients = try managedContext.fetch(fetchRequest) as! [Client]
