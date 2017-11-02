@@ -51,7 +51,7 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row == 0 {
       let cell: ClientCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "clientCell", for: indexPath) as! ClientCell
-      cell.clientNameInfo.text = event?.client
+      cell.clientNameInfo.text = event?.eventClientName
       return cell
     } else if indexPath.row == 1 {
       let cell: LocationCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath) as! LocationCell

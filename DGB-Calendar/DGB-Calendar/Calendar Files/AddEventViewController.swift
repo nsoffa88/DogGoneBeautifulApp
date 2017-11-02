@@ -27,7 +27,7 @@ class AddEventViewController: UIViewController {
     createTimePicker()
     
     if event != nil {
-      clientTextField.text = event?.client
+      clientTextField.text = event?.eventClientName
       timeSelection.text = event?.time
       locationTextField.text = event?.location
       notesTextField.text = event?.notes
@@ -88,7 +88,7 @@ class AddEventViewController: UIViewController {
     
       let event = NSManagedObject(entity: entity!, insertInto: managedContext)
     
-      event.setValue(client, forKey: "client")
+      event.setValue(client, forKey: "eventClientName")
       event.setValue(location, forKey: "location")
       event.setValue(time, forKey: "time")
       event.setValue(notes, forKey: "notes")
@@ -104,7 +104,7 @@ class AddEventViewController: UIViewController {
     } else {
       let eventToChange = event! as NSManagedObject
       
-      eventToChange.setValue(client, forKey: "client")
+      eventToChange.setValue(client, forKey: "eventClientName")
       eventToChange.setValue(location, forKey: "location")
       eventToChange.setValue(time, forKey: "time")
       eventToChange.setValue(notes, forKey: "notes")

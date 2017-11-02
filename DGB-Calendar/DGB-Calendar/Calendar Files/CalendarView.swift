@@ -133,8 +133,6 @@ class CalendarView: UIViewController {
     }
   }
   
-  
-  
   // Only do this once on viewDidLoad, output to array, and access that array for EventTable
   func loadNSData() {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -220,7 +218,7 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let event = todaysEvents[indexPath.row]
     let cell = eventsTableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
-    cell.textLabel?.text = event.value(forKeyPath: "client") as? String
+    cell.textLabel?.text = event.value(forKeyPath: "eventClientName") as? String
     cell.detailTextLabel?.text = event.value(forKeyPath: "time") as? String
     return cell
   }

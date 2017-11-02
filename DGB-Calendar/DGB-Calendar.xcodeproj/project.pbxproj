@@ -15,13 +15,13 @@
 		4596903F1FA3B09C008C3B2C /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4596903E1FA3B09C008C3B2C /* LocationCell.swift */; };
 		459690411FA3B0E0008C3B2C /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459690401FA3B0E0008C3B2C /* TimeCell.swift */; };
 		459690451FA3B115008C3B2C /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459690441FA3B115008C3B2C /* NotesCell.swift */; };
-		459690481FA3FBB5008C3B2C /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459690471FA3FBB5008C3B2C /* ClientViewController.swift */; };
-		4596904C1FA3FEB5008C3B2C /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4596904B1FA3FEB5008C3B2C /* ClientInfoViewController.swift */; };
 		4596904E1FA3FED4008C3B2C /* AddClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4596904D1FA3FED4008C3B2C /* AddClientViewController.swift */; };
 		45DDD5091F95502000EC942C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDD5081F95502000EC942C /* AppDelegate.swift */; };
 		45DDD50E1F95502000EC942C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD50C1F95502000EC942C /* Main.storyboard */; };
 		45DDD5101F95502000EC942C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD50F1F95502000EC942C /* Assets.xcassets */; };
 		45DDD51B1F9559CE00EC942C /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDD51A1F9559CE00EC942C /* CustomCell.swift */; };
+		45FCDB981FA907DF0099BA45 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FCDB971FA907DF0099BA45 /* ClientViewController.swift */; };
+		45FCDB9A1FA9264E0099BA45 /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FCDB991FA9264E0099BA45 /* ClientInfoViewController.swift */; };
 		739655689AFEE633E08CF30D /* Pods_DGB_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D046B5C12F1A405B955315 /* Pods_DGB_Calendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,8 +34,6 @@
 		4596903E1FA3B09C008C3B2C /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		459690401FA3B0E0008C3B2C /* TimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		459690441FA3B115008C3B2C /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
-		459690471FA3FBB5008C3B2C /* ClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
-		4596904B1FA3FEB5008C3B2C /* ClientInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
 		4596904D1FA3FED4008C3B2C /* AddClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClientViewController.swift; sourceTree = "<group>"; };
 		45DDD5051F95502000EC942C /* DGB-Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DGB-Calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DDD5081F95502000EC942C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +41,8 @@
 		45DDD50F1F95502000EC942C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45DDD5141F95502000EC942C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45DDD51A1F9559CE00EC942C /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		45FCDB971FA907DF0099BA45 /* ClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
+		45FCDB991FA9264E0099BA45 /* ClientInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
 		514B12BA8329695ED6115D47 /* Pods-DGB-Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DGB-Calendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-DGB-Calendar/Pods-DGB-Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		649BF99706345593608970D8 /* Pods-DGB-Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DGB-Calendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DGB-Calendar/Pods-DGB-Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		B6D046B5C12F1A405B955315 /* Pods_DGB_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DGB_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,8 +103,8 @@
 		4596904A1FA3FE90008C3B2C /* Client Files */ = {
 			isa = PBXGroup;
 			children = (
-				459690471FA3FBB5008C3B2C /* ClientViewController.swift */,
-				4596904B1FA3FEB5008C3B2C /* ClientInfoViewController.swift */,
+				45FCDB971FA907DF0099BA45 /* ClientViewController.swift */,
+				45FCDB991FA9264E0099BA45 /* ClientInfoViewController.swift */,
 				4596904D1FA3FED4008C3B2C /* AddClientViewController.swift */,
 			);
 			path = "Client Files";
@@ -271,18 +271,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4596903D1FA3AE9E008C3B2C /* ClientCell.swift in Sources */,
-				459690481FA3FBB5008C3B2C /* ClientViewController.swift in Sources */,
 				4546B9841F96BC23006663EA /* DGB-Calendar.xcdatamodeld in Sources */,
 				4596904E1FA3FED4008C3B2C /* AddClientViewController.swift in Sources */,
-				4596904C1FA3FEB5008C3B2C /* ClientInfoViewController.swift in Sources */,
 				452865531FA26E7800680D91 /* ViewInfoViewController.swift in Sources */,
 				459690411FA3B0E0008C3B2C /* TimeCell.swift in Sources */,
+				45FCDB981FA907DF0099BA45 /* ClientViewController.swift in Sources */,
 				4546B9891F96C34A006663EA /* AddEventViewController.swift in Sources */,
 				459690451FA3B115008C3B2C /* NotesCell.swift in Sources */,
 				45DDD51B1F9559CE00EC942C /* CustomCell.swift in Sources */,
 				45822C121F957BB000F462F9 /* CalendarView.swift in Sources */,
 				4596903F1FA3B09C008C3B2C /* LocationCell.swift in Sources */,
 				45DDD5091F95502000EC942C /* AppDelegate.swift in Sources */,
+				45FCDB9A1FA9264E0099BA45 /* ClientInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
