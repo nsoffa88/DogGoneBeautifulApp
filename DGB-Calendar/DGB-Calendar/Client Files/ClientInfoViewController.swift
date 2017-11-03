@@ -14,6 +14,7 @@ class ClientInfoViewController: UIViewController {
   
   var client: Client?
   var clientsDogs: [Dog] = []
+  var dogToPass: Dog?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,11 +34,18 @@ class ClientInfoViewController: UIViewController {
         editVC.client = client
       }
     }
-    if segue.identifier == "dogInfoSegue" {
+    if segue.identifier == "addDogSegue" {
       let destinationNavController = segue.destination as! UINavigationController
       if let editVC = destinationNavController.topViewController as? AddDogViewController {
         editVC.newDog = true
         editVC.client = client
+      }
+    }
+    if segue.identifier == "viewDogInfoSegue" {
+      let destinationNavController = segue.destination as! UINavigationController
+      if let viewVC = destinationNavController.topViewController as? DogInfoViewController {
+        viewVC.newDog = false
+        viewVC.dog = dogToPass
       }
     }
   }
@@ -124,6 +132,39 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
       let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "DogCell", for: indexPath)
       cell.textLabel?.text = clientsDogs[indexPath.row].dogName
       return cell
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if indexPath.section == 1 {
+      dogToPass = clientsDogs[indexPath.row]
+      self.performSegue(withIdentifier: "viewDogInfoSegue", sender: self)
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    if indexPath.section == 1 {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    guard let dogToRemove = clientsDogs[indexPath.row] as? Dog, editingStyle == .delete else {
+      return
+    }
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return
+    }
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    managedContext.delete(dogToRemove)
+    do {
+      try managedContext.save()
+      clientInfoTable.reloadData()
+    } catch let error as NSError {
+      print("Deleting error: \(error), \(error.userInfo)")
     }
   }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		452865531FA26E7800680D91 /* ViewInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452865521FA26E7800680D91 /* ViewInfoViewController.swift */; };
 		4529638C1FABAFE10016296F /* AddDogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4529638B1FABAFE10016296F /* AddDogViewController.swift */; };
+		4529638E1FABCDF90016296F /* DogInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4529638D1FABCDF90016296F /* DogInfoViewController.swift */; };
 		453017541FAAD8E000A0629F /* Client+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453017501FAAD8E000A0629F /* Client+CoreDataClass.swift */; };
 		453017551FAAD8E000A0629F /* Client+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453017511FAAD8E000A0629F /* Client+CoreDataProperties.swift */; };
 		453017561FAAD8E000A0629F /* Dog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453017521FAAD8E000A0629F /* Dog+CoreDataClass.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		452865521FA26E7800680D91 /* ViewInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInfoViewController.swift; sourceTree = "<group>"; };
 		4529638B1FABAFE10016296F /* AddDogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDogViewController.swift; sourceTree = "<group>"; };
+		4529638D1FABCDF90016296F /* DogInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogInfoViewController.swift; sourceTree = "<group>"; };
 		453017501FAAD8E000A0629F /* Client+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+CoreDataClass.swift"; sourceTree = "<group>"; };
 		453017511FAAD8E000A0629F /* Client+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		453017521FAAD8E000A0629F /* Dog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dog+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				45FCDB971FA907DF0099BA45 /* ClientViewController.swift */,
 				45FCDB991FA9264E0099BA45 /* ClientInfoViewController.swift */,
 				4596904D1FA3FED4008C3B2C /* AddClientViewController.swift */,
+				4529638D1FABCDF90016296F /* DogInfoViewController.swift */,
 				4529638B1FABAFE10016296F /* AddDogViewController.swift */,
 			);
 			path = "Client Files";
@@ -306,6 +309,7 @@
 				459690451FA3B115008C3B2C /* NotesCell.swift in Sources */,
 				453017571FAAD8E000A0629F /* Dog+CoreDataProperties.swift in Sources */,
 				453017541FAAD8E000A0629F /* Client+CoreDataClass.swift in Sources */,
+				4529638E1FABCDF90016296F /* DogInfoViewController.swift in Sources */,
 				45DDD51B1F9559CE00EC942C /* CustomCell.swift in Sources */,
 				45822C121F957BB000F462F9 /* CalendarView.swift in Sources */,
 				4596903F1FA3B09C008C3B2C /* LocationCell.swift in Sources */,

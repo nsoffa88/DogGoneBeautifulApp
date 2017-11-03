@@ -669,7 +669,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Add Dog"/>
                                 <connections>
-                                    <segue destination="2iI-pX-4yv" kind="presentation" identifier="dogInfoSegue" id="rkE-Wb-UOp"/>
+                                    <segue destination="2iI-pX-4yv" kind="presentation" identifier="addDogSegue" id="rkE-Wb-UOp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -699,6 +699,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="clientInfoTable" destination="lGW-zi-FGz" id="Mqu-Vr-qIk"/>
+                        <segue destination="6SU-uI-Cy1" kind="presentation" identifier="viewDogInfoSegue" id="dlI-oX-Jei"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LAB-no-Or3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -838,7 +839,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nw1-Nh-fdd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="8GQ-2z-1IS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1700.0000000000002" y="888.58695652173924"/>
+            <point key="canvasLocation" x="2007.2463768115942" y="888.58695652173924"/>
         </scene>
         <!--Enter Client Info-->
         <scene sceneID="sQE-Jc-2K6">
@@ -990,6 +991,74 @@
             </objects>
             <point key="canvasLocation" x="-186" y="-7"/>
         </scene>
+        <!--Dog Info-->
+        <scene sceneID="pQb-95-Vy0">
+            <objects>
+                <viewController id="RHm-Wc-ZeH" customClass="DogInfoViewController" customModule="DGB_Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gv4-b2-CMC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xq6-Tz-evI">
+                                <rect key="frame" x="0.0" y="64" width="414" height="652"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dogInfoCell" textLabel="wIZ-2T-7Bp" detailTextLabel="WHc-j3-CKS" style="IBUITableViewCellStyleValue1" id="geK-CB-I5Z">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="geK-CB-I5Z" id="TAr-XT-DfR">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wIZ-2T-7Bp">
+                                                    <rect key="frame" x="15" y="11.999999999999998" width="33.333333333333336" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WHc-j3-CKS">
+                                                    <rect key="frame" x="355" y="11.999999999999998" width="44" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="RHm-Wc-ZeH" id="1yY-Rl-tVY"/>
+                                    <outlet property="delegate" destination="RHm-Wc-ZeH" id="psQ-mF-n4i"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="tkZ-hv-Cvj"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Dog Info" id="ycj-SZ-x3k">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="kJL-ca-2d9">
+                            <connections>
+                                <segue destination="iHv-4J-PbG" kind="unwind" identifier="doneSavingClient" unwindAction="doneSavingClient:" id="ZXc-uP-eGL"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Nzc-Ff-gzE">
+                            <connections>
+                                <segue destination="2iI-pX-4yv" kind="presentation" identifier="editDogInfoSegue" id="m8I-aW-Brs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="dogInfoTableView" destination="xq6-Tz-evI" id="oLY-Sp-iwz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ccc-He-i9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="iHv-4J-PbG" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="505.79710144927537" y="1579.8913043478262"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="QZ9-9J-8qr">
             <objects>
@@ -1006,13 +1075,32 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcA-xg-GiL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="876.81159420289862" y="889.4021739130435"/>
+            <point key="canvasLocation" x="1184.0579710144928" y="889.4021739130435"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pYa-UL-1e9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6SU-uI-Cy1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2cy-xq-5rY">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RHm-Wc-ZeH" kind="relationship" relationship="rootViewController" id="ROz-ON-1Hc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V5w-20-PaQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-187" y="1580"/>
         </scene>
     </scenes>
     <resources>
         <image name="reddot" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="rkE-Wb-UOp"/>
         <segue reference="qQ0-cE-nBe"/>
         <segue reference="00d-n8-eBI"/>
     </inferredMetricsTieBreakers>

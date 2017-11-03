@@ -75,7 +75,7 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let client = clients![indexPath.row]
     let cell = clientTable.dequeueReusableCell(withIdentifier: "clientNameCell", for: indexPath)
-    cell.textLabel?.text = client.value(forKeyPath: "clientName") as? String
+    cell.textLabel?.text = client.clientName
     return cell
   }
 
