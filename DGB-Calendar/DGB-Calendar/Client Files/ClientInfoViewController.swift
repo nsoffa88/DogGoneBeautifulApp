@@ -19,17 +19,12 @@ class ClientInfoViewController: UIViewController {
   var clientsDogs: [Dog] = []
   var dogToPass: Dog?
   
-  let originalLat = 33.953155
-  let originalLon = -117.413528
   let regionRadius: CLLocationDistance = 1000
-  var initialLocation: CLLocation?
 
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     clientsDogs = getDogs()
-    initialLocation = CLLocation(latitude: originalLat, longitude: originalLon)
   }
 
   @IBAction func doneSavingClient(_ segue: UIStoryboardSegue) {
@@ -66,7 +61,7 @@ class ClientInfoViewController: UIViewController {
     return clientsDogs
   }
   
-  func centerMapOnLocation(location: CLLocation, cell: MapViewCell) {
+  func centerMapOnLocation(cell: MapViewCell) {
     let geocoder = CLGeocoder()
     geocoder.geocodeAddressString((self.client?.address)!) { (placemarks, error) in
       guard
@@ -149,7 +144,7 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
       } else if indexPath.row == 2 {
         let cell: MapViewCell = clientInfoTable.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapViewCell
-        centerMapOnLocation(location: initialLocation!, cell: cell)
+        centerMapOnLocation(cell: cell)
         return cell
       } else if indexPath.row == 3 {
         let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
@@ -205,6 +200,24 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
     } catch let error as NSError {
       print("Deleting error: \(error), \(error.userInfo)")
     }
+  }
+}
+
+extension ClientInfoViewController: MKMapViewDelegate {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    guard let annotation = annotation as? Location else { return nil }
+    let identifier = "marker"
+    var view: MKMarkerAnnotationView
+    if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
+      dequeuedView.annotation = annotation
+      view = dequeuedView
+    } else {
+      view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+      view.canShowCallout = true
+      view.calloutOffset = CGPoint(x: 0, y: 5)
+      view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+    }
+    return view
   }
 }
 
