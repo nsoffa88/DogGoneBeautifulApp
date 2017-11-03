@@ -8,17 +8,28 @@
 
 import UIKit
 import CoreData
+import MapKit
+import CoreLocation
 
 class ClientInfoViewController: UIViewController {
   @IBOutlet weak var clientInfoTable: UITableView!
+
   
   var client: Client?
   var clientsDogs: [Dog] = []
   var dogToPass: Dog?
   
+  let originalLat = 33.953155
+  let originalLon = -117.413528
+  let regionRadius: CLLocationDistance = 1000
+  var initialLocation: CLLocation?
+
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     clientsDogs = getDogs()
+    initialLocation = CLLocation(latitude: originalLat, longitude: originalLon)
   }
 
   @IBAction func doneSavingClient(_ segue: UIStoryboardSegue) {
@@ -53,6 +64,22 @@ class ClientInfoViewController: UIViewController {
   func getDogs() -> [Dog] {
     let clientsDogs = client?.dogs.allObjects as! [Dog]
     return clientsDogs
+  }
+  
+  func centerMapOnLocation(location: CLLocation, cell: MapViewCell) {
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString((self.client?.address)!) { (placemarks, error) in
+      guard
+        let placemarks = placemarks,
+        let location = placemarks.first?.location
+      else {
+        return
+      }
+      let spotOnMap = Location(title: "Client Address", address: (self.client?.address)!, coordinate: location.coordinate)
+      let coordinateRegion = MKCoordinateRegionMakeWithDistance(spotOnMap.coordinate, self.regionRadius, self.regionRadius)
+      cell.mapView.addAnnotation(spotOnMap)
+      cell.mapView.setRegion(coordinateRegion, animated: true)
+    }
   }
 }
 
@@ -99,6 +126,14 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
   }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if indexPath.row == 2 {
+      return 256.0
+    } else {
+      return 44.0
+    }
+  }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.section == 0 {
@@ -113,11 +148,15 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.text = client?.address
         return cell
       } else if indexPath.row == 2 {
+        let cell: MapViewCell = clientInfoTable.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapViewCell
+        centerMapOnLocation(location: initialLocation!, cell: cell)
+        return cell
+      } else if indexPath.row == 3 {
         let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = "Email:"
         cell.detailTextLabel?.text = client?.email
         return cell
-      } else if indexPath.row == 3 {
+      } else if indexPath.row == 4 {
         let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = "Referred By:"
         cell.detailTextLabel?.text = client?.referredBy

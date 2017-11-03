@@ -645,8 +645,25 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DogCell" textLabel="ZFn-K3-qhG" style="IBUITableViewCellStyleDefault" id="zfF-7Z-JJ5">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mapCell" id="8QU-o2-zEt" customClass="MapViewCell" customModule="DGB_Calendar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8QU-o2-zEt" id="qcq-hh-Vce" customClass="MapViewCell" customModule="DGB_Calendar" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Op2-S3-2hW">
+                                                    <rect key="frame" x="15" y="3" width="384" height="250"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </mapView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mapView" destination="Op2-S3-2hW" id="YXC-Tn-0Kf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DogCell" textLabel="ZFn-K3-qhG" style="IBUITableViewCellStyleDefault" id="zfF-7Z-JJ5">
+                                        <rect key="frame" x="0.0" y="116" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zfF-7Z-JJ5" id="LIP-2z-GlB">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
@@ -1108,7 +1125,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rkE-Wb-UOp"/>
-        <segue reference="yOv-7v-jeZ"/>
-        <segue reference="00d-n8-eBI"/>
+        <segue reference="qQ0-cE-nBe"/>
+        <segue reference="zAB-3V-ZHo"/>
     </inferredMetricsTieBreakers>
 </document>
