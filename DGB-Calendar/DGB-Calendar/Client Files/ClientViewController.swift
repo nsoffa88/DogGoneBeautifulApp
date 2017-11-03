@@ -102,12 +102,22 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = clientTable.dequeueReusableCell(withIdentifier: "clientNameCell", for: indexPath)
     let client: Client
+    var dogsString: String = ""
     if isFiltering() {
       client = filteredClients[indexPath.row]
     } else {
       client = clients![indexPath.row]
     }
     cell.textLabel?.text = client.clientName
+    let clientsDogs = client.dogs.allObjects as! [Dog]
+    for (index, dogs) in clientsDogs.enumerated() {
+      if clientsDogs.count - 1 > index {
+        dogsString.append(dogs.dogName! + ", ")
+      } else {
+        dogsString.append(dogs.dogName!)
+      }
+    }
+    cell.detailTextLabel?.text = dogsString
     return cell
   }
 
