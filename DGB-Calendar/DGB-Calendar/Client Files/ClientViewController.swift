@@ -14,6 +14,8 @@ class ClientViewController: UIViewController {
   
   var clients: [Client]?
   var client: Client?
+  var filteredClients = [Client]()
+  let searchController = UISearchController(searchResultsController: nil)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,6 +23,12 @@ class ClientViewController: UIViewController {
     if clients == nil {
       loadNSData()
     }
+    
+    searchController.searchResultsUpdater = self
+    searchController.obscuresBackgroundDuringPresentation = false
+    searchController.searchBar.placeholder = "Search Clients"
+    navigationItem.searchController = searchController
+    definesPresentationContext = true
   }
   
   @IBAction func doneViewingClientInfo(_ segue: UIStoryboardSegue) {
@@ -65,22 +73,50 @@ class ClientViewController: UIViewController {
       print("Could not fetch. \(error), \(error.userInfo)")
     }
   }
+  
+  func searchBarIsEmpty() -> Bool {
+    return searchController.searchBar.text?.isEmpty ?? true
+  }
+  
+  func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+    filteredClients = clients!.filter({( client: Client) -> Bool in
+      return (client.clientName?.lowercased().contains(searchText.lowercased()))!
+    })
+    
+    clientTable.reloadData()
+  }
+  
+  func isFiltering() -> Bool {
+    return searchController.isActive && !searchBarIsEmpty()
+  }
 }
 
 extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if isFiltering() {
+      return filteredClients.count
+    }
     return clients!.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let client = clients![indexPath.row]
     let cell = clientTable.dequeueReusableCell(withIdentifier: "clientNameCell", for: indexPath)
+    let client: Client
+    if isFiltering() {
+      client = filteredClients[indexPath.row]
+    } else {
+      client = clients![indexPath.row]
+    }
     cell.textLabel?.text = client.clientName
     return cell
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    client = clients![indexPath.row] as Client
+    if isFiltering() {
+      client = filteredClients[indexPath.row] as Client
+    } else {
+      client = clients![indexPath.row] as Client
+    }
     self.performSegue(withIdentifier: "viewClientInfoSegue", sender: self)
   }
 
@@ -104,6 +140,12 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
     } catch let error as NSError {
       print("Deleting error: \(error), \(error.userInfo)")
     }
+  }
+}
+
+extension ClientViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    filterContentForSearchText(searchController.searchBar.text!)
   }
 }
 
