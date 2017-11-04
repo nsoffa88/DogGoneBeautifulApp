@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
 class ViewInfoViewController: UIViewController {
   
@@ -14,6 +16,8 @@ class ViewInfoViewController: UIViewController {
 
   var eventDate: String?
   var event: Event?
+  
+  let regionRadius: CLLocationDistance = 1000
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -40,12 +44,35 @@ class ViewInfoViewController: UIViewController {
     eventInfoTableView.reloadData()
   }
   
+  func centerMapOnLocation(cell: MapViewCell) {
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString((event?.location)!) { (placemarks, error) in
+      guard
+        let placemarks = placemarks,
+        let location = placemarks.first?.location
+        else {
+          return
+      }
+      let spotOnMap = Location(title: "Client Address", address: (self.event?.location)!, coordinate: location.coordinate)
+      let coordinateRegion = MKCoordinateRegionMakeWithDistance(spotOnMap.coordinate, self.regionRadius, self.regionRadius)
+      cell.mapView.addAnnotation(spotOnMap)
+      cell.mapView.setRegion(coordinateRegion, animated: true)
+    }
+  }
 }
 
 extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 4
+    return Event.entity().attributesByName.count
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if indexPath.row == 2 {
+      return 256.0
+    } else {
+      return 44.0
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,6 +85,10 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
       cell.locationInfo.text = event?.location
       return cell
     } else if indexPath.row == 2 {
+      let cell: MapViewCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapViewCell
+      centerMapOnLocation(cell: cell)
+      return cell
+    } else if indexPath.row == 3 {
       let cell: TimeCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "timeCell", for: indexPath) as! TimeCell
       cell.timeInfo.text = event?.time
       return cell
@@ -66,6 +97,30 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
       cell.notesInfo.text = event?.notes
       return cell
     }
+  }
+}
+
+extension ViewInfoViewController: MKMapViewDelegate {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    guard let annotation = annotation as? Location else { return nil }
+    let identifier = "marker"
+    var view: MKMarkerAnnotationView
+    if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
+      dequeuedView.annotation = annotation
+      view = dequeuedView
+    } else {
+      view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+      view.canShowCallout = true
+      view.calloutOffset = CGPoint(x: 0, y: 5)
+      view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+    }
+    return view
+  }
+  
+  func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    let location = view.annotation as! Location
+    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+    location.mapItem().openInMaps(launchOptions: launchOptions)
   }
 }
 

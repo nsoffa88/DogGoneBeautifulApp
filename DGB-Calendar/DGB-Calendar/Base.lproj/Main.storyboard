@@ -314,8 +314,28 @@
                                             <outlet property="locationInfo" destination="lgN-0c-hK6" id="e6b-jW-xAJ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="timeCell" textLabel="4Cn-40-xPu" detailTextLabel="hsd-Sg-xfC" style="IBUITableViewCellStyleValue2" id="vie-F1-h83" userLabel="Time" customClass="TimeCell" customModule="DGB_Calendar" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mapCell" id="EyX-hJ-gYM" customClass="MapViewCell" customModule="DGB_Calendar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="132" width="414" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EyX-hJ-gYM" id="mKR-D5-tiw">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hl6-Ml-DqZ">
+                                                    <rect key="frame" x="15" y="3" width="391" height="250"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="iLS-Z0-Hwy" id="fTB-EM-W6l"/>
+                                                    </connections>
+                                                </mapView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mapView" destination="Hl6-Ml-DqZ" id="GqY-zM-YCj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="timeCell" textLabel="4Cn-40-xPu" detailTextLabel="hsd-Sg-xfC" style="IBUITableViewCellStyleValue2" id="vie-F1-h83" userLabel="Time" customClass="TimeCell" customModule="DGB_Calendar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="184" width="414" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vie-F1-h83" id="ieg-3T-oLJ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="51.666666666666664"/>
@@ -342,7 +362,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesCell" textLabel="EfZ-Bu-vp7" detailTextLabel="2qc-16-eMK" style="IBUITableViewCellStyleValue2" id="wEQ-ds-zah" userLabel="Notes" customClass="NotesCell" customModule="DGB_Calendar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="184" width="414" height="52"/>
+                                        <rect key="frame" x="0.0" y="236" width="414" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wEQ-ds-zah" id="hbA-ju-SZw">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="51.666666666666664"/>

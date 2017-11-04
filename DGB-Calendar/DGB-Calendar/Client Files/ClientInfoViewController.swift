@@ -13,7 +13,6 @@ import CoreLocation
 
 class ClientInfoViewController: UIViewController {
   @IBOutlet weak var clientInfoTable: UITableView!
-
   
   var client: Client?
   var clientsDogs: [Dog] = []
