@@ -56,7 +56,7 @@ class CalendarView: UIViewController {
     }
     
     //Setting up Events Table
-    eventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    eventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "detailCell")
     self.eventsTableView.reloadData()
   }
   

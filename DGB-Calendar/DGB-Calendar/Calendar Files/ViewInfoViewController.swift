@@ -22,7 +22,7 @@ class ViewInfoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    eventInfoTableView.estimatedRowHeight = 140
+    eventInfoTableView.estimatedRowHeight = 50
     eventInfoTableView.rowHeight = UITableViewAutomaticDimension
   }
   
@@ -63,11 +63,6 @@ class ViewInfoViewController: UIViewController {
     }
   }
   
-//  override func viewWillAppear(_ animated: Bool) {
-//    eventInfoTableView.estimatedRowHeight = 100
-//    eventInfoTableView.rowHeight = UITableViewAutomaticDimension
-//  }
-  
 }
 
 extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
@@ -86,13 +81,14 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row == 0 {
-      let cell: ClientCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "clientCell", for: indexPath) as! ClientCell
-      cell.clientNameInfo.text = event?.eventClientName
-      
+      let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Client Name:"
+      cell.detailText.text = event?.eventClientName
       return cell
     } else if indexPath.row == 1 {
-      let cell: LocationCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath) as! LocationCell
-      cell.locationInfo.text = event?.location
+      let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Address:"
+      cell.detailText.text = event?.location
       return cell
     } else if indexPath.row == 2 {
       let cell: MapViewCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapViewCell
@@ -100,12 +96,14 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
       cell.mapView.mapRectThatFits(cell.mapView.visibleMapRect)
       return cell
     } else if indexPath.row == 3 {
-      let cell: TimeCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "timeCell", for: indexPath) as! TimeCell
-      cell.timeInfo.text = event?.time
+      let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Time:"
+      cell.detailText.text = event?.time
       return cell
     } else {
-      let cell: NotesCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "notesCell", for: indexPath) as! NotesCell
-      cell.notesInfo.text = event?.notes
+      let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Notes:"
+      cell.detailText.text = event?.notes
       return cell
     }
   }

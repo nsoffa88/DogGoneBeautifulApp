@@ -16,6 +16,9 @@ class DogInfoViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    dogInfoTableView.estimatedRowHeight = 50
+    dogInfoTableView.rowHeight = UITableViewAutomaticDimension
   }
 
   @IBAction func doneSavingClient(_ segue: UIStoryboardSegue) {
@@ -57,49 +60,49 @@ extension DogInfoViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row == 0 {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Breed:"
-      cell.detailTextLabel?.text = dog?.breed
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Breed:"
+      cell.detailText.text = dog?.breed
       return cell
     } else if indexPath.row == 1 {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Age:"
-      cell.detailTextLabel?.text = dog?.age
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Age:"
+      cell.detailText.text = dog?.age
       return cell
     } else if indexPath.row == 2 {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Medical Issues:"
-      cell.detailTextLabel?.text = dog?.meds
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Medical Issues:"
+      cell.detailText.text = dog?.meds
       return cell
     } else if indexPath.row == 3 {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Vet Info:"
-      cell.detailTextLabel?.text = dog?.vet
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Vet Info:"
+      cell.detailText.text = dog?.vet
       return cell
     } else if indexPath.row == 4 {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Personality:"
-      cell.detailTextLabel?.text = dog?.personality
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Personality:"
+      cell.detailText.text = dog?.personality
       return cell
     } else if indexPath.row == 5 {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Grooming Interval:"
-      cell.detailTextLabel?.text = dog?.groomInterval
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Grooming Interval:"
+      cell.detailText.text = dog?.groomInterval
       return cell
     } else if indexPath.row == 6 {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Shampoo:"
-      cell.detailTextLabel?.text = dog?.shampoo
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Shampoo:"
+      cell.detailText.text = dog?.shampoo
       return cell
     } else if indexPath.row == 7 {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Price:"
-      cell.detailTextLabel?.text = dog?.price
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Price:"
+      cell.detailText.text = dog?.price
       return cell
     } else {
-      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "dogInfoCell", for: indexPath)
-      cell.textLabel?.text = "Procedure:"
-      cell.detailTextLabel?.text = dog?.procedure
+      let cell = dogInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Procedure:"
+      cell.detailText.text = dog?.procedure
       return cell
     }
   }

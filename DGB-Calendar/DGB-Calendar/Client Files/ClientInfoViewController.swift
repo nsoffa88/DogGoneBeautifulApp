@@ -24,6 +24,9 @@ class ClientInfoViewController: UIViewController {
     super.viewDidLoad()
     
     clientsDogs = getDogs()
+    
+    clientInfoTable.estimatedRowHeight = 50
+    clientInfoTable.rowHeight = UITableViewAutomaticDimension
   }
 
   @IBAction func doneSavingClient(_ segue: UIStoryboardSegue) {
@@ -114,7 +117,7 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
   //First Section holds clients info, any section after that holds dog info
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if section == 0 {
-      return Client.entity().attributesByName.count
+      return Client.entity().attributesByName.count - 1
     } else {
       return client!.dogs.count
     }
@@ -122,43 +125,43 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if indexPath.row == 2 {
-      return 256.0
+    if indexPath.row == 2 && indexPath.section == 0 {
+      return 266.0
     } else {
-      return 44.0
+      return UITableViewAutomaticDimension
     }
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.section == 0 {
       if indexPath.row == 0 {
-        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = "Phone:"
-        cell.detailTextLabel?.text = client?.phoneNumber
+        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+        cell.titleText.text = "Phone:"
+        cell.detailText.text = client?.phoneNumber
         return cell
       } else if indexPath.row == 1 {
-        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = "Address:"
-        cell.detailTextLabel?.text = client?.address
+        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+        cell.titleText.text = "Address:"
+        cell.detailText.text = client?.address
         return cell
       } else if indexPath.row == 2 {
         let cell: MapViewCell = clientInfoTable.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapViewCell
         centerMapOnLocation(cell: cell)
         return cell
       } else if indexPath.row == 3 {
-        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = "Email:"
-        cell.detailTextLabel?.text = client?.email
+        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+        cell.titleText.text = "Email:"
+        cell.detailText.text = client?.email
         return cell
       } else if indexPath.row == 4 {
-        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = "Referred By:"
-        cell.detailTextLabel?.text = client?.referredBy
+        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+        cell.titleText.text = "Referred By:"
+        cell.detailText.text = client?.referredBy
         return cell
       } else {
-        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = "Referrals:"
-        cell.detailTextLabel?.text = client?.referrals
+        let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+        cell.titleText.text = "Referrals:"
+        cell.detailText.text = client?.referrals
         return cell
       }
     } else {
