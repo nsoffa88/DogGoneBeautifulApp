@@ -21,6 +21,9 @@ class ViewInfoViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    eventInfoTableView.estimatedRowHeight = 140
+    eventInfoTableView.rowHeight = UITableViewAutomaticDimension
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -59,6 +62,12 @@ class ViewInfoViewController: UIViewController {
       cell.mapView.setRegion(coordinateRegion, animated: true)
     }
   }
+  
+//  override func viewWillAppear(_ animated: Bool) {
+//    eventInfoTableView.estimatedRowHeight = 100
+//    eventInfoTableView.rowHeight = UITableViewAutomaticDimension
+//  }
+  
 }
 
 extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
@@ -69,9 +78,9 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     if indexPath.row == 2 {
-      return 256.0
+      return 266.0
     } else {
-      return 44.0
+      return UITableViewAutomaticDimension
     }
   }
   
@@ -79,6 +88,7 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
     if indexPath.row == 0 {
       let cell: ClientCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "clientCell", for: indexPath) as! ClientCell
       cell.clientNameInfo.text = event?.eventClientName
+      
       return cell
     } else if indexPath.row == 1 {
       let cell: LocationCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath) as! LocationCell
@@ -87,6 +97,7 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
     } else if indexPath.row == 2 {
       let cell: MapViewCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapViewCell
       centerMapOnLocation(cell: cell)
+      cell.mapView.mapRectThatFits(cell.mapView.visibleMapRect)
       return cell
     } else if indexPath.row == 3 {
       let cell: TimeCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "timeCell", for: indexPath) as! TimeCell
