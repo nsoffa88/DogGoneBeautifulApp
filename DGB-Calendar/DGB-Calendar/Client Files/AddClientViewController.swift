@@ -19,7 +19,7 @@ class AddClientViewController: UIViewController {
   @IBOutlet weak var referredByTextField: UITextField!
   @IBOutlet weak var referralsTextField: UITextField!
   
-  var client: Client?
+  var client: CKRecord?
   var newClient: Bool?
   
   let database = CKContainer.default().privateCloudDatabase
@@ -29,12 +29,12 @@ class AddClientViewController: UIViewController {
       super.viewDidLoad()
     
     if client != nil {
-      clientNameTextField.text = client?.clientName
-      phoneNumberTextField.text = client?.phoneNumber
-      addressTextField.text = client?.address
-      emailTextField.text = client?.email
-      referredByTextField.text = client?.referredBy
-      referralsTextField.text = client?.referrals
+      clientNameTextField.text = client?.value(forKey: "Name") as? String
+      phoneNumberTextField.text = client?.value(forKey: "PhoneNumber") as? String
+      addressTextField.text = client?.value(forKey: "Address") as? String
+      emailTextField.text = client?.value(forKey: "Email") as? String
+      referredByTextField.text = client?.value(forKey: "ReferredBy") as? String
+      referralsTextField.text = client?.value(forKey: "Referrals") as? String
     }
   }
   
@@ -69,8 +69,14 @@ class AddClientViewController: UIViewController {
   }
   
   func save(name: String, phoneNumber: String, address: String, email: String, referredBy: String, referrals: String) {
+    var clientToSave: CKRecord
     
-    let clientToSave = CKRecord(recordType: "Client")
+    if newClient == true {
+      clientToSave = CKRecord(recordType: "Client")
+    } else {
+      clientToSave = client!
+    }
+    
     clientToSave.setValue(name, forKey: "Name")
     clientToSave.setValue(phoneNumber, forKey: "PhoneNumber")
     clientToSave.setValue(address, forKey: "Address")
@@ -83,8 +89,8 @@ class AddClientViewController: UIViewController {
       guard record != nil else { return }
 //      print("saved client")
       self.clientRecords?.append(clientToSave)
-      print("APPENDED")
-      print(self.clientRecords)
+//      print("APPENDED")
+//      print(self.clientRecords)
       self.performSegue(withIdentifier: "doneSavingClient", sender: self)
     }
 //    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {

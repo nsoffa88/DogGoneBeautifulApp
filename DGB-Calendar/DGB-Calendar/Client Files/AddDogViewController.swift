@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CloudKit
 
 class AddDogViewController: UIViewController {
   @IBOutlet weak var dogNameTextField: UITextField!
@@ -21,7 +22,7 @@ class AddDogViewController: UIViewController {
   @IBOutlet weak var priceTextField: UITextField!
   @IBOutlet weak var procedureTextField: UITextField!
   
-  var client: Client?
+  var client: CKRecord?
   var dog: Dog?
   var newDog: Bool?
   
@@ -90,7 +91,7 @@ class AddDogViewController: UIViewController {
       dog.setValue(price, forKey: "price")
       dog.setValue(procedure, forKey: "procedure")
       
-      dog.owner = client
+//      dog.owner = client
       
       do {
         try managedContext.save()

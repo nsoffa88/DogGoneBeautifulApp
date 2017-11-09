@@ -14,7 +14,7 @@ class ClientViewController: UIViewController {
   @IBOutlet weak var clientTable: UITableView!
   
   var clients: [Client]?
-  var client: Client?
+  var client: CKRecord?
   var filteredClients = [Client]()
   let searchController = UISearchController(searchResultsController: nil)
   
@@ -48,7 +48,6 @@ class ClientViewController: UIViewController {
     clientRecords = sortRecords(records: clientRecords)
     DispatchQueue.main.async {
       self.clientTable.reloadData()
-      print("Reloaded Data Hopefully")
     }
   }
   
@@ -76,7 +75,7 @@ class ClientViewController: UIViewController {
       self.clientRecords = records
       DispatchQueue.main.async {
         self.clientTable.reloadData()
-        print("Reloaded Data")
+//        print("Reloaded Data")
       }
     }
   }
@@ -153,11 +152,11 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if isFiltering() {
-      client = filteredClients[indexPath.row] as Client
-    } else {
-      client = clients![indexPath.row] as Client
-    }
+//    if isFiltering() {
+//      client = filteredClients[indexPath.row]
+//    } else {
+      client = clientRecords[indexPath.row]
+//    }
     self.performSegue(withIdentifier: "viewClientInfoSegue", sender: self)
   }
 
@@ -166,21 +165,30 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    guard let clientToRemove = clients![indexPath.row] as? Client, editingStyle == .delete else {
-      return
+    print(clientRecords[indexPath.row])
+    let clientIDToRemove = clientRecords[indexPath.row].recordID
+    database.delete(withRecordID: clientIDToRemove) { (records, _) in
+      guard records != nil else { return }
+      self.clientRecords.remove(at: indexPath.row)
+      DispatchQueue.main.async {
+        self.clientTable.reloadData()
+      }
     }
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-      return
-    }
-    let managedContext = appDelegate.persistentContainer.viewContext
-
-    managedContext.delete(clientToRemove)
-    do {
-      try managedContext.save()
-      clientTable.reloadData()
-    } catch let error as NSError {
-      print("Deleting error: \(error), \(error.userInfo)")
-    }
+//    guard let clientToRemove = clients![indexPath.row] as? Client, editingStyle == .delete else {
+//      return
+//    }
+//    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+//      return
+//    }
+//    let managedContext = appDelegate.persistentContainer.viewContext
+//
+//    managedContext.delete(clientToRemove)
+//    do {
+//      try managedContext.save()
+//      clientTable.reloadData()
+//    } catch let error as NSError {
+//      print("Deleting error: \(error), \(error.userInfo)")
+//    }
   }
 }
 

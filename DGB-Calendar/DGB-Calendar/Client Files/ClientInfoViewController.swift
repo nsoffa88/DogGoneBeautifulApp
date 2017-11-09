@@ -10,11 +10,12 @@ import UIKit
 import CoreData
 import MapKit
 import CoreLocation
+import CloudKit
 
 class ClientInfoViewController: UIViewController {
   @IBOutlet weak var clientInfoTable: UITableView!
   
-  var client: Client?
+  var client: CKRecord?
   var clientsDogs: [Dog] = []
   var dogToPass: Dog?
   
@@ -23,15 +24,17 @@ class ClientInfoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    clientsDogs = getDogs()
+//    clientsDogs = getDogs()
     
     clientInfoTable.estimatedRowHeight = 50
     clientInfoTable.rowHeight = UITableViewAutomaticDimension
   }
 
   @IBAction func doneSavingClient(_ segue: UIStoryboardSegue) {
-    clientsDogs = getDogs()
-    clientInfoTable.reloadData()
+//    clientsDogs = getDogs()
+    DispatchQueue.main.async {
+      self.clientInfoTable.reloadData()
+    }
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -58,21 +61,21 @@ class ClientInfoViewController: UIViewController {
     }
   }
   
-  func getDogs() -> [Dog] {
-    let clientsDogs = client?.dogs.allObjects as! [Dog]
-    return clientsDogs
-  }
+//  func getDogs() -> [Dog] {
+//    let clientsDogs = client?.dogs.allObjects as! [Dog]
+//    return clientsDogs
+//  }
   
   func centerMapOnLocation(cell: MapViewCell) {
     let geocoder = CLGeocoder()
-    geocoder.geocodeAddressString((self.client?.address)!) { (placemarks, error) in
+    geocoder.geocodeAddressString(self.client?.value(forKey: "Address") as! String) { (placemarks, error) in
       guard
         let placemarks = placemarks,
         let location = placemarks.first?.location
       else {
         return
       }
-      let spotOnMap = Location(title: "Client Address", address: (self.client?.address)!, coordinate: location.coordinate)
+      let spotOnMap = Location(title: "Client Address", address: (self.client?.value(forKey: "Address") as! String), coordinate: location.coordinate)
       let coordinateRegion = MKCoordinateRegionMakeWithDistance(spotOnMap.coordinate, self.regionRadius, self.regionRadius)
       cell.mapView.addAnnotation(spotOnMap)
       cell.mapView.setRegion(coordinateRegion, animated: true)
@@ -107,7 +110,7 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
     let view = UITableViewHeaderFooterView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.bounds.width, height: tableView.sectionHeaderHeight))
     view.contentView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     if section == 0 {
-      view.textLabel?.text = client?.clientName
+      view.textLabel?.text = self.client?.value(forKey: "Name") as! String
     } else {
       view.textLabel?.text = "Dogs"
     }
@@ -117,9 +120,9 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
   //First Section holds clients info, any section after that holds dog info
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if section == 0 {
-      return Client.entity().attributesByName.count - 1
+      return Client.entity().attributesByName.count
     } else {
-      return client!.dogs.count
+      return 1
     }
 
   }
@@ -137,12 +140,12 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
       if indexPath.row == 0 {
         let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
         cell.titleText.text = "Phone:"
-        cell.detailText.text = client?.phoneNumber
+        cell.detailText.text = self.client?.value(forKey: "PhoneNumber") as? String
         return cell
       } else if indexPath.row == 1 {
         let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
         cell.titleText.text = "Address:"
-        cell.detailText.text = client?.address
+        cell.detailText.text = self.client?.value(forKey: "Address") as? String
         return cell
       } else if indexPath.row == 2 {
         let cell: MapViewCell = clientInfoTable.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapViewCell
@@ -151,31 +154,31 @@ extension ClientInfoViewController: UITableViewDelegate, UITableViewDataSource {
       } else if indexPath.row == 3 {
         let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
         cell.titleText.text = "Email:"
-        cell.detailText.text = client?.email
+        cell.detailText.text = self.client?.value(forKey: "Email") as? String
         return cell
       } else if indexPath.row == 4 {
         let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
         cell.titleText.text = "Referred By:"
-        cell.detailText.text = client?.referredBy
+        cell.detailText.text = self.client?.value(forKey: "ReferredBy") as? String
         return cell
       } else {
         let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
         cell.titleText.text = "Referrals:"
-        cell.detailText.text = client?.referrals
+        cell.detailText.text = self.client?.value(forKey: "Referrals") as? String
         return cell
       }
     } else {
       let cell = clientInfoTable.dequeueReusableCell(withIdentifier: "DogCell", for: indexPath)
-      cell.textLabel?.text = clientsDogs[indexPath.row].dogName
+//      cell.textLabel?.text = clientsDogs[indexPath.row].dogName
       return cell
     }
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if indexPath.section == 1 {
-      dogToPass = clientsDogs[indexPath.row]
-      self.performSegue(withIdentifier: "viewDogInfoSegue", sender: self)
-    }
+//    if indexPath.section == 1 {
+//      dogToPass = clientsDogs[indexPath.row]
+//      self.performSegue(withIdentifier: "viewDogInfoSegue", sender: self)
+//    }
   }
   
   func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
