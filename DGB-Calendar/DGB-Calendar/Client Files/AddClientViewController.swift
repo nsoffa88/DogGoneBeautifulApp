@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CloudKit
 
 class AddClientViewController: UIViewController {
   @IBOutlet weak var saveClientInfoButton: UIBarButtonItem!
@@ -21,6 +22,9 @@ class AddClientViewController: UIViewController {
   var client: Client?
   var newClient: Bool?
   
+  let database = CKContainer.default().privateCloudDatabase
+  var clientRecords: [CKRecord]?
+  
   override func viewDidLoad() {
       super.viewDidLoad()
     
@@ -31,6 +35,15 @@ class AddClientViewController: UIViewController {
       emailTextField.text = client?.email
       referredByTextField.text = client?.referredBy
       referralsTextField.text = client?.referrals
+    }
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "doneSavingClient" {
+//      let destinationNavController = segue.destination as! UINavigationController
+      if let clientVC = segue.destination as? ClientViewController {
+        clientVC.clientRecords = clientRecords!
+      }
     }
   }
 
@@ -56,45 +69,63 @@ class AddClientViewController: UIViewController {
   }
   
   func save(name: String, phoneNumber: String, address: String, email: String, referredBy: String, referrals: String) {
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-      return
-    }
     
-    let managedContext = appDelegate.persistentContainer.viewContext
+    let clientToSave = CKRecord(recordType: "Client")
+    clientToSave.setValue(name, forKey: "Name")
+    clientToSave.setValue(phoneNumber, forKey: "PhoneNumber")
+    clientToSave.setValue(address, forKey: "Address")
+    clientToSave.setValue(email, forKey: "Email")
+    clientToSave.setValue(referredBy, forKey: "ReferredBy")
+    clientToSave.setValue(referrals, forKey: "Referrals")
     
-    if newClient == true {
-      let entity = NSEntityDescription.entity(forEntityName: "Client", in: managedContext)
-      
-      let client = NSManagedObject(entity: entity!, insertInto: managedContext)
-      
-      client.setValue(name, forKey: "clientName")
-      client.setValue(phoneNumber, forKey: "phoneNumber")
-      client.setValue(address, forKey: "address")
-      client.setValue(email, forKey: "email")
-      client.setValue(referredBy, forKey: "referredBy")
-      client.setValue(referrals, forKey: "referrals")
-      
-      do {
-        try managedContext.save()
-        self.performSegue(withIdentifier: "doneSavingClient", sender: self)
-      } catch let error as NSError {
-        print("Could not save. \(error), \(error.userInfo)")
-      }
-    } else {
-      let clientToChange = client! as NSManagedObject
-      
-      clientToChange.setValue(name, forKey: "clientName")
-      clientToChange.setValue(phoneNumber, forKey: "phoneNumber")
-      clientToChange.setValue(address, forKey: "address")
-      clientToChange.setValue(email, forKey: "email")
-      clientToChange.setValue(referredBy, forKey: "referrals")
-      
-      do {
-        try clientToChange.managedObjectContext?.save()
-        self.performSegue(withIdentifier: "doneSavingClient", sender: self)
-      } catch let error as NSError {
-        print("Could not edit. \(error), \(error.userInfo)")
-      }
+    database.save(clientToSave) { (record, error) in
+//      print(error)
+      guard record != nil else { return }
+//      print("saved client")
+      self.clientRecords?.append(clientToSave)
+      print("APPENDED")
+      print(self.clientRecords)
+      self.performSegue(withIdentifier: "doneSavingClient", sender: self)
     }
+//    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+//      return
+//    }
+//
+//    let managedContext = appDelegate.persistentContainer.viewContext
+//
+//    if newClient == true {
+//      let entity = NSEntityDescription.entity(forEntityName: "Client", in: managedContext)
+//
+//      let client = NSManagedObject(entity: entity!, insertInto: managedContext)
+//
+//      client.setValue(name, forKey: "clientName")
+//      client.setValue(phoneNumber, forKey: "phoneNumber")
+//      client.setValue(address, forKey: "address")
+//      client.setValue(email, forKey: "email")
+//      client.setValue(referredBy, forKey: "referredBy")
+//      client.setValue(referrals, forKey: "referrals")
+//
+//      do {
+//        try managedContext.save()
+//        self.performSegue(withIdentifier: "doneSavingClient", sender: self)
+//      } catch let error as NSError {
+//        print("Could not save. \(error), \(error.userInfo)")
+//      }
+//    } else {
+//      let clientToChange = client! as NSManagedObject
+//
+//      clientToChange.setValue(name, forKey: "clientName")
+//      clientToChange.setValue(phoneNumber, forKey: "phoneNumber")
+//      clientToChange.setValue(address, forKey: "address")
+//      clientToChange.setValue(email, forKey: "email")
+//      clientToChange.setValue(referredBy, forKey: "referrals")
+//
+//      do {
+//        try clientToChange.managedObjectContext?.save()
+//        self.performSegue(withIdentifier: "doneSavingClient", sender: self)
+//      } catch let error as NSError {
+//        print("Could not edit. \(error), \(error.userInfo)")
+//      }
+//    }
   }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CloudKit
 
 class ClientViewController: UIViewController {
   @IBOutlet weak var clientTable: UITableView!
@@ -17,12 +18,17 @@ class ClientViewController: UIViewController {
   var filteredClients = [Client]()
   let searchController = UISearchController(searchResultsController: nil)
   
+  let database = CKContainer.default().privateCloudDatabase
+  var clientRecords = [CKRecord]()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if clients == nil {
-      loadNSData()
-    }
+    queryDatabase()
+    
+//    if clients == nil {
+//      loadNSData()
+//    }
     
     searchController.searchResultsUpdater = self
     searchController.obscuresBackgroundDuringPresentation = false
@@ -32,12 +38,18 @@ class ClientViewController: UIViewController {
   }
   
   @IBAction func doneViewingClientInfo(_ segue: UIStoryboardSegue) {
-    loadNSData()
-    clientTable.reloadData()
+//    loadNSData()
+    queryDatabase()
+//    clientTable.reloadData()
   }
   @IBAction func doneSavingClient(_ segue: UIStoryboardSegue) {
-    loadNSData()
-    clientTable.reloadData()
+//    loadNSData()
+//    queryDatabase()
+    clientRecords = sortRecords(records: clientRecords)
+    DispatchQueue.main.async {
+      self.clientTable.reloadData()
+      print("Reloaded Data Hopefully")
+    }
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -45,12 +57,26 @@ class ClientViewController: UIViewController {
       let destinationNavController = segue.destination as! UINavigationController
       if let addClientVC = destinationNavController.topViewController as? AddClientViewController {
         addClientVC.newClient = true
+        addClientVC.clientRecords = clientRecords
       }
     }
     if segue.identifier == "viewClientInfoSegue" {
       let destinationNavController = segue.destination as! UINavigationController
       if let viewClientVC = destinationNavController.topViewController as? ClientInfoViewController {
         viewClientVC.client = client
+      }
+    }
+  }
+  
+  func queryDatabase() {
+    let query = CKQuery(recordType: "Client", predicate: NSPredicate(value: true))
+    query.sortDescriptors = [NSSortDescriptor(key: "Name", ascending: true)]
+    database.perform(query, inZoneWith: nil) { (records, _) in
+      guard let records = records else { return }
+      self.clientRecords = records
+      DispatchQueue.main.async {
+        self.clientTable.reloadData()
+        print("Reloaded Data")
       }
     }
   }
@@ -89,6 +115,11 @@ class ClientViewController: UIViewController {
   func isFiltering() -> Bool {
     return searchController.isActive && !searchBarIsEmpty()
   }
+  
+  func sortRecords(records: [CKRecord]) -> [CKRecord] {
+    let sortedRecords = records.sorted(by: { $1.value(forKey: "Name") as! String > $0.value(forKey: "Name") as! String})
+    return sortedRecords
+  }
 }
 
 extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
@@ -96,28 +127,28 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
     if isFiltering() {
       return filteredClients.count
     }
-    return clients!.count
+    return clientRecords.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = clientTable.dequeueReusableCell(withIdentifier: "clientNameCell", for: indexPath)
-    let client: Client
-    var dogsString: String = ""
-    if isFiltering() {
-      client = filteredClients[indexPath.row]
-    } else {
-      client = clients![indexPath.row]
-    }
-    cell.textLabel?.text = client.clientName
-    let clientsDogs = client.dogs.allObjects as! [Dog]
-    for (index, dogs) in clientsDogs.enumerated() {
-      if clientsDogs.count - 1 > index {
-        dogsString.append(dogs.dogName! + ", ")
-      } else {
-        dogsString.append(dogs.dogName!)
-      }
-    }
-    cell.detailTextLabel?.text = dogsString
+    let client = clientRecords[indexPath.row].value(forKey: "Name") as! String
+//    var dogsString: String = ""
+//    if isFiltering() {
+//      client = filteredClients[indexPath.row]
+//    } else {
+//      client = clients![indexPath.row]
+//    }
+    cell.textLabel?.text = client
+//    let clientsDogs = client.dogs.allObjects as! [Dog]
+//    for (index, dogs) in clientsDogs.enumerated() {
+//      if clientsDogs.count - 1 > index {
+//        dogsString.append(dogs.dogName! + ", ")
+//      } else {
+//        dogsString.append(dogs.dogName!)
+//      }
+//    }
+//    cell.detailTextLabel?.text = dogsString
     return cell
   }
 

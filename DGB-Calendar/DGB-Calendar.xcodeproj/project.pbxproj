@@ -25,6 +25,7 @@
 		45DDD50E1F95502000EC942C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD50C1F95502000EC942C /* Main.storyboard */; };
 		45DDD5101F95502000EC942C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45DDD50F1F95502000EC942C /* Assets.xcassets */; };
 		45DDD51B1F9559CE00EC942C /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDD51A1F9559CE00EC942C /* CustomCell.swift */; };
+		45FAB43A1FB3983A0066960F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FAB4391FB3983A0066960F /* CloudKit.framework */; };
 		45FCDB981FA907DF0099BA45 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FCDB971FA907DF0099BA45 /* ClientViewController.swift */; };
 		45FCDB9A1FA9264E0099BA45 /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FCDB991FA9264E0099BA45 /* ClientInfoViewController.swift */; };
 		739655689AFEE633E08CF30D /* Pods_DGB_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D046B5C12F1A405B955315 /* Pods_DGB_Calendar.framework */; };
@@ -51,6 +52,8 @@
 		45DDD50F1F95502000EC942C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45DDD5141F95502000EC942C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45DDD51A1F9559CE00EC942C /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		45FAB4381FB397AF0066960F /* DGB-Calendar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DGB-Calendar.entitlements"; sourceTree = "<group>"; };
+		45FAB4391FB3983A0066960F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		45FCDB971FA907DF0099BA45 /* ClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
 		45FCDB991FA9264E0099BA45 /* ClientInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
 		514B12BA8329695ED6115D47 /* Pods-DGB-Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DGB-Calendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-DGB-Calendar/Pods-DGB-Calendar.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				739655689AFEE633E08CF30D /* Pods_DGB_Calendar.framework in Frameworks */,
+				45FAB43A1FB3983A0066960F /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +77,7 @@
 		218A9E01861BFD548D32986C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45FAB4391FB3983A0066960F /* CloudKit.framework */,
 				B6D046B5C12F1A405B955315 /* Pods_DGB_Calendar.framework */,
 			);
 			name = Frameworks;
@@ -151,6 +156,7 @@
 		45DDD5071F95502000EC942C /* DGB-Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				45FAB4381FB397AF0066960F /* DGB-Calendar.entitlements */,
 				453017471FAAD86F00A0629F /* Core Data Models */,
 				459690461FA3FB5E008C3B2C /* CustomCells */,
 				4596904A1FA3FE90008C3B2C /* Client Files */,
@@ -201,6 +207,14 @@
 					45DDD5041F95502000EC942C = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -440,6 +454,7 @@
 			baseConfigurationReference = 649BF99706345593608970D8 /* Pods-DGB-Calendar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "DGB-Calendar/DGB-Calendar.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7SB96T3FAM;
 				INFOPLIST_FILE = "DGB-Calendar/Info.plist";
@@ -456,6 +471,7 @@
 			baseConfigurationReference = 514B12BA8329695ED6115D47 /* Pods-DGB-Calendar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "DGB-Calendar/DGB-Calendar.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7SB96T3FAM;
 				INFOPLIST_FILE = "DGB-Calendar/Info.plist";
