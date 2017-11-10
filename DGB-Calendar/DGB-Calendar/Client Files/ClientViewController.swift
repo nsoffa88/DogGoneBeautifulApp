@@ -14,7 +14,7 @@ class ClientViewController: UIViewController {
   @IBOutlet weak var clientTable: UITableView!
   
   var client: CKRecord?
-  var filteredClients = [Client]()
+  var filteredClients = [CKRecord]()
   let searchController = UISearchController(searchResultsController: nil)
   
   let database = CKContainer.default().privateCloudDatabase
@@ -39,16 +39,12 @@ class ClientViewController: UIViewController {
     DispatchQueue.main.async {
       self.clientTable.reloadData()
     }
-//    print("Check Dog Records:")
-//    print(dogRecords)
   }
   @IBAction func doneSavingClient(_ segue: UIStoryboardSegue) {
     clientRecords = sortRecords(records: clientRecords)
     DispatchQueue.main.async {
       self.clientTable.reloadData()
     }
-//    print("Check Dog Records:")
-//    print(dogRecords)
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -117,6 +113,10 @@ class ClientViewController: UIViewController {
 //    filteredClients = clients!.filter({( client: Client) -> Bool in
 //      return (client.clientName?.lowercased().contains(searchText.lowercased()))!
 //    })
+    filteredClients = clientRecords.filter({( client: CKRecord) -> Bool in
+      let clientNameString = client.value(forKey: "Name") as! String
+      return (clientNameString.lowercased().contains(searchText.lowercased()))
+    })
 
     clientTable.reloadData()
   }
@@ -145,23 +145,26 @@ class ClientViewController: UIViewController {
 
 extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//    if isFiltering() {
-//      return filteredClients.count
-//    }
+    if isFiltering() {
+      return filteredClients.count
+    }
     return clientRecords.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = clientTable.dequeueReusableCell(withIdentifier: "clientNameCell", for: indexPath)
-    let clientRecord = clientRecords[indexPath.row]
+    
+    var clientRecord: CKRecord
+    if isFiltering() {
+      clientRecord = filteredClients[indexPath.row]
+    } else {
+      clientRecord = clientRecords[indexPath.row]
+    }
+    
     let clientName = clientRecord.value(forKey: "Name") as! String
     var clientsDogs = [CKRecord]()
     var dogsString: String = ""
-//    if isFiltering() {
-//      client = filteredClients[indexPath.row]
-//    } else {
-//      client = clients![indexPath.row]
-//    }
+    
     cell.textLabel?.text = clientName
     
     clientsDogs = getDogs(clientRecord: clientRecord)
@@ -179,11 +182,11 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//    if isFiltering() {
-//      client = filteredClients[indexPath.row]
-//    } else {
+    if isFiltering() {
+      client = filteredClients[indexPath.row]
+    } else {
       client = clientRecords[indexPath.row]
-//    }
+    }
     self.performSegue(withIdentifier: "viewClientInfoSegue", sender: self)
   }
 
@@ -192,11 +195,31 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    let clientIDToRemove = clientRecords[indexPath.row].recordID
-    let dogsToRemove = getDogs(clientRecord: clientRecords[indexPath.row])
+    var clientIDToRemove: CKRecordID
+    var dogsToRemove: [CKRecord]
+    var filtered: Bool
+    if isFiltering() {
+      clientIDToRemove = filteredClients[indexPath.row].recordID
+      dogsToRemove = getDogs(clientRecord: filteredClients[indexPath.row])
+      filtered = true
+    } else {
+      clientIDToRemove = clientRecords[indexPath.row].recordID
+      dogsToRemove = getDogs(clientRecord: clientRecords[indexPath.row])
+      filtered = false
+    }
     database.delete(withRecordID: clientIDToRemove) { (records, _) in
       guard records != nil else { return }
-      self.clientRecords.remove(at: indexPath.row)
+      if filtered {
+        for (index, client) in self.clientRecords.enumerated() {
+          if client.recordID == clientIDToRemove {
+            self.filteredClients.remove(at: indexPath.row)
+            self.clientRecords.remove(at: index)
+          }
+        }
+      } else {
+        self.clientRecords.remove(at: indexPath.row)
+      }
+      print(self.clientRecords)
       for dogToRemove in dogsToRemove {
         for (index, dog) in self.dogRecords.enumerated() {
           if dogToRemove.recordID == dog.recordID {
@@ -204,8 +227,6 @@ extension ClientViewController: UITableViewDataSource, UITableViewDelegate {
           }
         }
       }
-      print("Deleted Clients Dogs")
-      print(self.dogRecords)
       DispatchQueue.main.async {
         self.clientTable.reloadData()
       }
