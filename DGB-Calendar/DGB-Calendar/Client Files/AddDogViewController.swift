@@ -23,23 +23,26 @@ class AddDogViewController: UIViewController {
   @IBOutlet weak var procedureTextField: UITextField!
   
   var client: CKRecord?
-  var dog: Dog?
+  var dog: CKRecord?
+  var dogRecords: [CKRecord]?
   var newDog: Bool?
+  var clientsDogs: [CKRecord]?
+  let database = CKContainer.default().privateCloudDatabase
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     if dog != nil {
-      dogNameTextField.text = dog?.dogName
-      breedTextField.text = dog?.breed
-      ageTextField.text = dog?.age
-      medsTextField.text = dog?.meds
-      vetInfoTextField.text = dog?.vet
-      personalityTextField.text = dog?.personality
-      groomTextField.text = dog?.groomInterval
-      shampooTextField.text = dog?.shampoo
-      priceTextField.text = dog?.price
-      procedureTextField.text = dog?.procedure
+      dogNameTextField.text = dog?.value(forKey: "Name") as? String
+      breedTextField.text = dog?.value(forKey: "Breed") as? String
+      ageTextField.text = dog?.value(forKey: "Age") as? String
+      medsTextField.text = dog?.value(forKey: "Meds") as? String
+      vetInfoTextField.text = dog?.value(forKey: "Vet") as? String
+      personalityTextField.text = dog?.value(forKey: "Personality") as? String
+      groomTextField.text = dog?.value(forKey: "GroomInterval") as? String
+      shampooTextField.text = dog?.value(forKey: "Shampoo") as? String
+      priceTextField.text = dog?.value(forKey: "Price") as? String
+      procedureTextField.text = dog?.value(forKey: "Procedure") as? String
     }
   }
   
@@ -69,55 +72,49 @@ class AddDogViewController: UIViewController {
   }
   
   func save(name: String, breed: String, age: String, meds: String, vetInfo: String, personality: String, groomInterval: String, shampoo: String, price: String, procedure: String) {
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-      return
-    }
-    
-    let managedContext = appDelegate.persistentContainer.viewContext
+    var dogToSave: CKRecord
     
     if newDog == true {
-      let entity = NSEntityDescription.entity(forEntityName: "Dog", in: managedContext)
-      
-      let dog = NSManagedObject(entity: entity!, insertInto: managedContext) as! Dog
-      
-      dog.setValue(name, forKey: "dogName")
-      dog.setValue(breed, forKey: "breed")
-      dog.setValue(age, forKey: "age")
-      dog.setValue(meds, forKey: "meds")
-      dog.setValue(vetInfo, forKey: "vet")
-      dog.setValue(personality, forKey: "personality")
-      dog.setValue(groomInterval, forKey: "groomInterval")
-      dog.setValue(shampoo, forKey: "shampoo")
-      dog.setValue(price, forKey: "price")
-      dog.setValue(procedure, forKey: "procedure")
-      
-//      dog.owner = client
-      
-      do {
-        try managedContext.save()
-        self.performSegue(withIdentifier: "doneSavingClient", sender: self)
-      } catch let error as NSError {
-        print("Could not save. \(error), \(error.userInfo)")
-      }
+      dogToSave = CKRecord(recordType: "Dog")
     } else {
-      let dogToChange = dog! as NSManagedObject
-      
-      dogToChange.setValue(name, forKey: "dogName")
-      dogToChange.setValue(breed, forKey: "breed")
-      dogToChange.setValue(age, forKey: "age")
-      dogToChange.setValue(meds, forKey: "meds")
-      dogToChange.setValue(vetInfo, forKey: "vet")
-      dogToChange.setValue(personality, forKey: "personality")
-      dogToChange.setValue(groomInterval, forKey: "groomInterval")
-      dogToChange.setValue(shampoo, forKey: "shampoo")
-      dogToChange.setValue(price, forKey: "price")
-      dogToChange.setValue(procedure, forKey: "procedure")
-      
-      do {
-        try dogToChange.managedObjectContext?.save()
+      dogToSave = dog!
+    }
+    
+    dogToSave.setValue(name, forKey: "Name")
+    dogToSave.setValue(breed, forKey: "Breed")
+    dogToSave.setValue(age, forKey: "Age")
+    dogToSave.setValue(meds, forKey: "Meds")
+    dogToSave.setValue(vetInfo, forKey: "Vet")
+    dogToSave.setValue(personality, forKey: "Personality")
+    dogToSave.setValue(groomInterval, forKey: "GroomInterval")
+    dogToSave.setValue(shampoo, forKey: "Shampoo")
+    dogToSave.setValue(price, forKey: "Price")
+    dogToSave.setValue(procedure, forKey: "Procedure")
+    
+    //Saving Reference on Dog Record to Owner
+    let ownerReference = CKReference(record: client!, action: CKReferenceAction.deleteSelf)
+    dogToSave.setValue(ownerReference, forKey: "OwnerReference")
+    
+    database.save(dogToSave) { (record, error) in
+      if error != nil {
+        print(error)
+      } else {
+        if self.newDog == true {
+          self.clientsDogs?.append(dogToSave)
+          self.dogRecords?.append(dogToSave)
+        }
         self.performSegue(withIdentifier: "doneSavingClient", sender: self)
-      } catch let error as NSError {
-        print("Could not edit. \(error), \(error.userInfo)")
+
+      }
+    }
+
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "doneSavingClient" {
+      if let viewVC = segue.destination as? ClientInfoViewController {
+        viewVC.clientsDogs = clientsDogs!
+        viewVC.dogRecords = dogRecords
       }
     }
   }
