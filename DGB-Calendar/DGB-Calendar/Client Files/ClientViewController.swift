@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import CloudKit
 
 class ClientViewController: UIViewController {
@@ -110,9 +109,6 @@ class ClientViewController: UIViewController {
   }
 
   func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-//    filteredClients = clients!.filter({( client: Client) -> Bool in
-//      return (client.clientName?.lowercased().contains(searchText.lowercased()))!
-//    })
     filteredClients = clientRecords.filter({( client: CKRecord) -> Bool in
       let clientNameString = client.value(forKey: "Name") as! String
       return (clientNameString.lowercased().contains(searchText.lowercased()))
