@@ -9,13 +9,18 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CloudKit
 
 class ViewInfoViewController: UIViewController {
   
   @IBOutlet weak var eventInfoTableView: UITableView!
 
   var eventDate: String?
-  var event: Event?
+  var eventRecord: CKRecord?
+  var clientRecord: CKRecord?
+  var clientRecords: [CKRecord]?
+  var dogRecords: [CKRecord]?
+  var dogRecord: CKRecord?
   
   let regionRadius: CLLocationDistance = 1000
 
@@ -32,7 +37,11 @@ class ViewInfoViewController: UIViewController {
       if let editVC = destinationNavController.topViewController as? AddEventViewController {
         editVC.newEvent = false
         editVC.eventDate = eventDate
-        editVC.event = event
+        editVC.eventRecord = eventRecord
+        editVC.clientRecord = clientRecord
+        editVC.dogRecord = dogRecord
+        editVC.dogRecords = dogRecords!
+        editVC.clientRecords = clientRecords!
       }
     }
     if segue.identifier == "infoToCalendarSegue" {
@@ -44,23 +53,38 @@ class ViewInfoViewController: UIViewController {
   }
   
   @IBAction func doneSavingEvent(_ segue: UIStoryboardSegue) {
-    eventInfoTableView.reloadData()
+    DispatchQueue.main.async {
+      self.eventInfoTableView.reloadData()
+    }
   }
   
   func centerMapOnLocation(cell: MapViewCell) {
     let geocoder = CLGeocoder()
-    geocoder.geocodeAddressString((event?.location)!) { (placemarks, error) in
+    let eventAddress = eventRecord?.value(forKey: "Address") as! String
+    geocoder.geocodeAddressString(eventAddress) { (placemarks, error) in
       guard
         let placemarks = placemarks,
         let location = placemarks.first?.location
         else {
           return
       }
-      let spotOnMap = Location(title: "Client Address", address: (self.event?.location)!, coordinate: location.coordinate)
+      let spotOnMap = Location(title: "Client Address", address: eventAddress, coordinate: location.coordinate)
       let coordinateRegion = MKCoordinateRegionMakeWithDistance(spotOnMap.coordinate, self.regionRadius, self.regionRadius)
       cell.mapView.addAnnotation(spotOnMap)
       cell.mapView.setRegion(coordinateRegion, animated: true)
     }
+  }
+  
+  func getDog(eventRecord: CKRecord) -> CKRecord {
+    var dog: CKRecord?
+    for dogRecord in dogRecords! {
+      let eventDogReference = eventRecord.value(forKey: "DogReference") as! CKReference
+      let eventDogRecordName = eventDogReference.recordID.recordName
+      if eventDogRecordName == dogRecord.recordID.recordName {
+        dog = dogRecord
+      }
+    }
+    return dog!
   }
   
 }
@@ -68,11 +92,11 @@ class ViewInfoViewController: UIViewController {
 extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return Event.entity().attributesByName.count
+    return 6
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if indexPath.row == 2 {
+    if indexPath.row == 3 {
       return 266.0
     } else {
       return UITableViewAutomaticDimension
@@ -83,27 +107,33 @@ extension ViewInfoViewController: UITableViewDelegate, UITableViewDataSource {
     if indexPath.row == 0 {
       let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
       cell.titleText.text = "Client Name:"
-      cell.detailText.text = event?.eventClientName
+      cell.detailText.text = clientRecord?.value(forKey: "Name") as! String
       return cell
     } else if indexPath.row == 1 {
       let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
-      cell.titleText.text = "Address:"
-      cell.detailText.text = event?.location
+      cell.titleText.text = "Dog:"
+      dogRecord = getDog(eventRecord: eventRecord!)
+      cell.detailText.text = dogRecord?.value(forKey: "Name") as! String
       return cell
     } else if indexPath.row == 2 {
+      let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
+      cell.titleText.text = "Address:"
+      cell.detailText.text = eventRecord?.value(forKey: "Address") as! String
+      return cell
+    } else if indexPath.row == 3 {
       let cell: MapViewCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapViewCell
       centerMapOnLocation(cell: cell)
       cell.mapView.mapRectThatFits(cell.mapView.visibleMapRect)
       return cell
-    } else if indexPath.row == 3 {
+    } else if indexPath.row == 4 {
       let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
       cell.titleText.text = "Time:"
-      cell.detailText.text = event?.time
+      cell.detailText.text = eventRecord?.value(forKey: "Time") as! String
       return cell
     } else {
       let cell: DetailCell = eventInfoTableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as! DetailCell
       cell.titleText.text = "Notes:"
-      cell.detailText.text = event?.notes
+      cell.detailText.text = eventRecord?.value(forKey: "Notes") as! String
       return cell
     }
   }

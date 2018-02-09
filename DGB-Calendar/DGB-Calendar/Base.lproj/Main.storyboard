@@ -374,29 +374,26 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Dog Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8ds-Eh-M6v" userLabel="Dog Text Field">
+                                <rect key="frame" x="20" y="129" width="374" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wkb-wa-IC8" userLabel="Location Text Field">
-                                <rect key="frame" x="20" y="124" width="374" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="OaU-Xa-HOp"/>
-                                </constraints>
+                                <rect key="frame" x="20" y="179" width="374" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zp-WJ-2j1">
-                                <rect key="frame" x="20" y="169" width="374" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="XD1-Kc-09C"/>
-                                </constraints>
+                                <rect key="frame" x="20" y="229" width="374" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgo-w8-pUV">
-                                <rect key="frame" x="20" y="214" width="374" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="8qI-lE-pJ4"/>
-                                </constraints>
+                                <rect key="frame" x="20" y="279" width="374" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -405,17 +402,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1Jq-hI-veh" firstAttribute="trailing" secondItem="DMV-4M-5UC" secondAttribute="trailing" constant="20" id="1pt-7j-bfe"/>
-                            <constraint firstItem="1Zp-WJ-2j1" firstAttribute="top" secondItem="Wkb-wa-IC8" secondAttribute="bottom" constant="15" id="4Y7-Je-H9a"/>
                             <constraint firstItem="DMV-4M-5UC" firstAttribute="leading" secondItem="1Jq-hI-veh" secondAttribute="leading" constant="20" id="5t2-pg-RVi"/>
-                            <constraint firstItem="wgo-w8-pUV" firstAttribute="top" secondItem="1Zp-WJ-2j1" secondAttribute="bottom" constant="15" id="6NF-vb-gxf"/>
+                            <constraint firstItem="8ds-Eh-M6v" firstAttribute="top" secondItem="DMV-4M-5UC" secondAttribute="bottom" constant="20" id="BRh-hA-QLd"/>
                             <constraint firstItem="1Zp-WJ-2j1" firstAttribute="leading" secondItem="1Jq-hI-veh" secondAttribute="leading" constant="20" id="F4g-My-tjJ"/>
+                            <constraint firstItem="Wkb-wa-IC8" firstAttribute="leading" secondItem="1Jq-hI-veh" secondAttribute="leading" constant="20" id="ImD-Zs-OUA"/>
                             <constraint firstItem="DMV-4M-5UC" firstAttribute="top" secondItem="1Jq-hI-veh" secondAttribute="top" constant="15" id="KRd-cC-KW9"/>
+                            <constraint firstItem="8ds-Eh-M6v" firstAttribute="leading" secondItem="1Jq-hI-veh" secondAttribute="leading" constant="20" id="LAZ-EE-sAN"/>
+                            <constraint firstItem="wgo-w8-pUV" firstAttribute="top" secondItem="1Zp-WJ-2j1" secondAttribute="bottom" constant="20" id="R6E-EE-ugp"/>
                             <constraint firstItem="1Jq-hI-veh" firstAttribute="trailing" secondItem="1Zp-WJ-2j1" secondAttribute="trailing" constant="20" id="Yt3-i9-4pT"/>
-                            <constraint firstItem="Wkb-wa-IC8" firstAttribute="leading" secondItem="1Jq-hI-veh" secondAttribute="leading" constant="20" id="c2J-We-KJJ"/>
                             <constraint firstItem="1Jq-hI-veh" firstAttribute="trailing" secondItem="wgo-w8-pUV" secondAttribute="trailing" constant="20" id="j8U-9y-hoO"/>
-                            <constraint firstItem="Wkb-wa-IC8" firstAttribute="top" secondItem="DMV-4M-5UC" secondAttribute="bottom" constant="15" id="oSt-HF-16l"/>
-                            <constraint firstItem="1Jq-hI-veh" firstAttribute="trailing" secondItem="Wkb-wa-IC8" secondAttribute="trailing" constant="20" id="qJF-eE-P1S"/>
+                            <constraint firstItem="1Jq-hI-veh" firstAttribute="trailing" secondItem="Wkb-wa-IC8" secondAttribute="trailing" constant="20" id="k1F-su-KLe"/>
+                            <constraint firstItem="1Jq-hI-veh" firstAttribute="trailing" secondItem="8ds-Eh-M6v" secondAttribute="trailing" constant="20" id="p0K-HY-Cqy"/>
+                            <constraint firstItem="Wkb-wa-IC8" firstAttribute="top" secondItem="8ds-Eh-M6v" secondAttribute="bottom" constant="20" id="qiP-Qu-7wD"/>
                             <constraint firstItem="wgo-w8-pUV" firstAttribute="leading" secondItem="1Jq-hI-veh" secondAttribute="leading" constant="20" id="wGN-k6-UWj"/>
+                            <constraint firstItem="1Zp-WJ-2j1" firstAttribute="top" secondItem="Wkb-wa-IC8" secondAttribute="bottom" constant="20" id="wv8-mY-X7f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1Jq-hI-veh"/>
                     </view>
@@ -433,6 +433,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="clientTextField" destination="DMV-4M-5UC" id="Hs7-K1-LIK"/>
+                        <outlet property="dogTextField" destination="8ds-Eh-M6v" id="n2L-IM-0aN"/>
                         <outlet property="locationTextField" destination="Wkb-wa-IC8" id="6rf-VD-a3O"/>
                         <outlet property="notesTextField" destination="wgo-w8-pUV" id="haY-fW-vcf"/>
                         <outlet property="saveEventButton" destination="LrC-og-kBM" id="6n8-aY-wcT"/>

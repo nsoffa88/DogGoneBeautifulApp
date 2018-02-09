@@ -115,6 +115,9 @@ class AddDogViewController: UIViewController {
         viewVC.clientsDogs = clientsDogs!
         viewVC.dogRecords = dogRecords
       }
+      if let viewVC = segue.destination as? DogInfoViewController {
+        viewVC.dog = dog
+      }
     }
   }
   

@@ -130,8 +130,8 @@ class ClientViewController: UIViewController {
     var clientsDogs = [CKRecord]()
     for dogRecord in dogRecords {
       let dogOwnerReference = dogRecord.value(forKey: "OwnerReference") as! CKReference
-      let dogOwnerID = dogOwnerReference.recordID.recordName
-      if dogOwnerID == clientRecord.recordID.recordName {
+      let dogOwnerRecordName = dogOwnerReference.recordID.recordName
+      if dogOwnerRecordName == clientRecord.recordID.recordName {
         clientsDogs.append(dogRecord)
       }
     }

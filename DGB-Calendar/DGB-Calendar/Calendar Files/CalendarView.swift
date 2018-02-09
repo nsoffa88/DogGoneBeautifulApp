@@ -9,6 +9,7 @@
 import UIKit
 import JTAppleCalendar
 import CoreData
+import CloudKit
 
 class CalendarView: UIViewController {
   @IBOutlet weak var calendarView: JTAppleCalendarView!
@@ -26,27 +27,26 @@ class CalendarView: UIViewController {
   }()
   
   let todaysDate = Date()
-  var events: [Event]?
-  var todaysEvents: [Event] = []
+  var eventRecords: [CKRecord]?
+  var todaysEvents: [CKRecord] = []
   var selectedDate: String?
-  var event: Event?
+  var eventRecord: CKRecord?
+  
+  var clientRecords: [CKRecord]?
+  var todaysClientsRecords = [CKRecord]()
+  var clientRecord: CKRecord?
+  var dogRecords: [CKRecord]?
+  var loaded: Int = 0
+  
+  let database = CKContainer.default().privateCloudDatabase
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    //Pulling from Core Data
-    if events == nil {
-      loadNSData()
-    }
-    
-    //Setting up Calendar
-    if selectedDate == nil {
-      calendarView.scrollToDate( todaysDate, animateScroll: false )
-      calendarView.selectDates([ todaysDate ])
-    } else {
-      calendarView.scrollToDate(formatter.date(from: selectedDate!)!, animateScroll: false )
-      calendarView.selectDates([formatter.date(from: selectedDate!)!])
-    }
+    queryDatabase()
+  }
+  
+  func setUpCalendar() {
     calendarView.minimumLineSpacing = 0
     calendarView.minimumInteritemSpacing = 0
     calendarView.scrollDirection = .vertical
@@ -61,8 +61,9 @@ class CalendarView: UIViewController {
   }
   
   @IBAction func todayButton(_ sender: Any) {
-    calendarView.scrollToDate(todaysDate)
+    formatter.dateFormat = "yyyy MM dd"
     calendarView.selectDates([todaysDate])
+    calendarView.scrollToDate(todaysDate)
     selectedDate = formatter.string(from: todaysDate)
   }
   
@@ -90,7 +91,7 @@ class CalendarView: UIViewController {
     let monthDateString = formatter.string(from: cellState.date)
     
     if todaysDateString == monthDateString {
-      cell.dateLabel.textColor = UIColor.blue
+      cell.dateLabel.textColor = UIColor.white
     } else {
       cell.dateLabel.textColor = UIColor.black
     }
@@ -105,14 +106,18 @@ class CalendarView: UIViewController {
   }
   
   func cellEvents(cell: CustomCell, cellState: CellState) {
-    cell.eventDotView.isHidden = !(events?.contains { $0.date == formatter.string(from: cellState.date)})!
+    if eventRecords == nil {
+      cell.eventDotView.isHidden = true
+    } else {
+      cell.eventDotView.isHidden = !(eventRecords?.contains { $0.value(forKey: "Date") as! String == formatter.string(from: cellState.date)})!
+    }
   }
   
   //Fetching todaysEvents from Events Array, sorting by Time and outputting to Events Table
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    getEventsByDate()
-  }
+//  override func viewWillAppear(_ animated: Bool) {
+//    super.viewWillAppear(animated)
+//    getEventsByDate()
+//  }
   
   //Passing variables between ViewControllers
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -121,56 +126,120 @@ class CalendarView: UIViewController {
       if let addEventVC = destinationNavController.topViewController as? AddEventViewController {
         addEventVC.newEvent = true
         addEventVC.eventDate = selectedDate
-        addEventVC.events = events!
+        addEventVC.eventRecords = eventRecords!
+        addEventVC.todaysEventRecords = todaysEvents
+        addEventVC.dogRecords = dogRecords!
+        addEventVC.clientRecords = clientRecords!
       }
     }
     if segue.identifier == "viewEventSegue" {
       let destinationNavController = segue.destination as! UINavigationController
       if let viewEventVC = destinationNavController.topViewController as? ViewInfoViewController {
         viewEventVC.eventDate = selectedDate
-        viewEventVC.event = event!
+        viewEventVC.eventRecord = eventRecord!
+        viewEventVC.clientRecord = clientRecord!
+        viewEventVC.dogRecords = dogRecords
+        viewEventVC.clientRecords = clientRecords
       }
     }
   }
   
-  // Only do this once on viewDidLoad, output to array, and access that array for EventTable
-  func loadNSData() {
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-      return
+  func queryDatabase() {
+    let eventQuery = CKQuery(recordType: "Event", predicate: NSPredicate(value: true))
+    eventQuery.sortDescriptors = [NSSortDescriptor(key: "Date", ascending: true)]
+    database.perform(eventQuery, inZoneWith: nil) { (records, error) in
+      if error == nil {
+        self.eventRecords = records!
+      } else {
+        print(error)
+      }
+      if self.loaded == 2 {
+        DispatchQueue.main.async {
+          self.setUpCalendar()
+          self.calendarView.reloadData()
+          self.eventsTableView.reloadData()
+          self.todayButton(self)
+        }
+      } else {
+        self.loaded = self.loaded + 1
+      }
     }
     
-    let managedContext = appDelegate.persistentContainer.viewContext
-    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Event")
-
-    do {
-      events = try managedContext.fetch(fetchRequest) as! [Event]
-    } catch let error as NSError {
-      print("Could not fetch. \(error), \(error.userInfo)")
+    let clientQuery = CKQuery(recordType: "Client", predicate: NSPredicate(value: true))
+    clientQuery.sortDescriptors = [NSSortDescriptor(key: "Name", ascending: true)]
+    database.perform(clientQuery, inZoneWith: nil) { (records, error) in
+      if error == nil {
+        self.clientRecords = records!
+      } else {
+        print(error)
+      }
+      if self.loaded == 2 {
+        DispatchQueue.main.async {
+          self.setUpCalendar()
+          self.calendarView.reloadData()
+          self.eventsTableView.reloadData()
+          self.todayButton(self)
+        }
+      } else {
+        self.loaded = self.loaded + 1
+      }
+    }
+    
+    let dogQuery = CKQuery(recordType: "Dog", predicate: NSPredicate(value: true))
+    database.perform(dogQuery, inZoneWith: nil) { (records, error) in
+      if error == nil {
+        self.dogRecords = records!
+      } else {
+        print(error)
+      }
+      if self.loaded == 2 {
+        DispatchQueue.main.async {
+          self.setUpCalendar()
+          self.calendarView.reloadData()
+          self.eventsTableView.reloadData()
+          self.todayButton(self)
+        }
+      } else {
+        self.loaded = self.loaded + 1
+      }
     }
   }
   
   func getEventsByDate() {
     todaysEvents = []
-    for allEvents in events! {
-      if allEvents.date == selectedDate {
+    todaysClientsRecords = []
+    for allEvents in eventRecords! {
+      if allEvents.value(forKey: "Date") as! String == selectedDate {
         todaysEvents.append(allEvents)
+        let clientReference = allEvents.value(forKey: "ClientReference") as! CKReference
+        for record in clientRecords! {
+          if clientReference.recordID.recordName == record.recordID.recordName {
+            todaysClientsRecords.append(record)
+          }
+        } 
       }
     }
-    todaysEvents.sort(by: { $0.time! < $1.time! })
+    todaysEvents.sort(by: { $1.value(forKey: "Time") as! String > $0.value(forKey: "Time") as! String })
+    DispatchQueue.main.async {
+      self.eventsTableView.reloadData()
+    }
   }
   
   // Functions for NavBar
   @IBAction func doneViewingInfo(_ segue: UIStoryboardSegue) {
-    loadNSData()
     getEventsByDate()
-    calendarView.reloadData()
-    eventsTableView.reloadData()
+    DispatchQueue.main.async {
+      self.calendarView.reloadData()
+      self.eventsTableView.reloadData()
+    }
   }
   @IBAction func doneSavingEvent(_ segue: UIStoryboardSegue) {
-    loadNSData()
     getEventsByDate()
-    calendarView.reloadData()
-    eventsTableView.reloadData()
+    print(todaysEvents)
+    DispatchQueue.main.async {
+      self.calendarView.reloadData()
+      self.eventsTableView.reloadData()
+    }
   }
 }
 
@@ -178,7 +247,7 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
   func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
     formatter.dateFormat = "yyyy MM dd"
     let startDate = formatter.date(from: "2017 01 01")!
-    let endDate = formatter.date(from: "2017 12 31")!
+    let endDate = formatter.date(from: "2050 12 31")!
     
     let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
     return parameters
@@ -195,9 +264,10 @@ extension CalendarView: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelega
     configureCell(cell: cell, cellState: cellState)
     selectedDate = formatter.string(from: date)
     
-    getEventsByDate()
+    if eventRecords != nil {
+      getEventsByDate()
+    }
     
-    eventsTableView.reloadData()
     cell?.bounce()
   }
   
@@ -218,13 +288,22 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let event = todaysEvents[indexPath.row]
     let cell = eventsTableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath)
-    cell.textLabel?.text = event.value(forKeyPath: "eventClientName") as? String
-    cell.detailTextLabel?.text = event.value(forKeyPath: "time") as? String
+    let clientReference = event.value(forKey: "ClientReference") as! CKReference
+    var clientRecord: CKRecord?
+    for record in clientRecords! {
+      if clientReference.recordID.recordName == record.recordID.recordName {
+        clientRecord = record
+        todaysClientsRecords.append(record)
+      }
+    }
+    cell.textLabel?.text = clientRecord?.value(forKey: "Name") as? String
+    cell.detailTextLabel?.text = event.value(forKey: "Time") as? String
     return cell
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    event = todaysEvents[indexPath.row] as Event
+    eventRecord = todaysEvents[indexPath.row]
+    clientRecord = todaysClientsRecords[indexPath.row]
     self.performSegue(withIdentifier: "viewEventSegue", sender: self)
   }
   
@@ -233,22 +312,23 @@ extension CalendarView: UITableViewDataSource, UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    guard let eventToRemove = todaysEvents[indexPath.row] as? Event, editingStyle == .delete else {
-      return
-    }
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-      return
-    }
-    let managedContext = appDelegate.persistentContainer.viewContext
+    let eventIDToRemove = todaysEvents[indexPath.row].recordID
     
-    managedContext.delete(eventToRemove)
-    do {
-      try managedContext.save()
-      getEventsByDate()
-      eventsTableView.reloadData()
-      calendarView.reloadData()
-    } catch let error as NSError {
-      print("Deleting error: \(error), \(error.userInfo)")
+    database.delete(withRecordID: eventIDToRemove) { (records, error) in
+      if error == nil {
+        self.todaysEvents.remove(at: indexPath.row)
+        for (index, event) in (self.eventRecords?.enumerated())! {
+          if event.recordID.recordName == eventIDToRemove.recordName {
+            self.eventRecords?.remove(at: index)
+          }
+        }
+      } else {
+        print(error)
+      }
+      DispatchQueue.main.async {
+        
+        self.eventsTableView.reloadData()
+      }
     }
   }
 }
